@@ -121,7 +121,8 @@
                 <input class="form-check-input" type="radio" name="religion_preference" value="specify">
                 <label class="form-check-label">Specify religion</label>
               </div>
-              <input type="text" class="form-control mt-2" id="religion_input" disabled>
+              <!-- Changed from text input to dropdown -->
+              <select class="form-select mt-2" id="religion_input" disabled></select>
             </div>
           </div>
 
@@ -303,7 +304,7 @@
           })
           .catch(error => console.error('Error loading country data:', error));
 
-        // Populate dropdowns for ethnicity, language, and sexual orientation based on selected country
+        // Populate dropdowns for ethnicity, language, religion, and sexual orientation based on selected country
         function populateDropdowns() {
           const country = document.getElementById('country').value;
           const demographics = countryData.countries[country].demographics;
@@ -327,6 +328,21 @@
             opt.textContent = lang.name;
             languageSelect.appendChild(opt);
           });
+          
+          // Religion dropdown
+          const religionSelect = document.getElementById('religion_input');
+          religionSelect.innerHTML = "";
+          demographics.religion.groups.forEach(group => {
+            const opt = document.createElement('option');
+            opt.value = group.name;
+            opt.textContent = group.name;
+            religionSelect.appendChild(opt);
+          });
+          // Optionally add a "No Religion" option
+          const noReligionOpt = document.createElement('option');
+          noReligionOpt.value = "No Religion";
+          noReligionOpt.textContent = "No Religion";
+          religionSelect.appendChild(noReligionOpt);
           
           // Sexual Orientation dropdown
           const orientationSelect = document.getElementById('orientation_input');
@@ -448,7 +464,7 @@
             sex: document.querySelector('input[name="sex_preference"]:checked').value === 'random'
               ? (Math.random() < 0.5 ? 'male' : 'female')
               : document.getElementById('sex_input').value,
-            // Now using gender identity for naming:
+            // Use gender identity for naming
             genderIdentity: document.querySelector('input[name="gender_preference"]:checked').value === 'random'
               ? getRandomFromDistribution(countryDemographics.gender_identity.categories)
               : document.getElementById('gender_input').value,
@@ -469,7 +485,7 @@
               : document.getElementById('pregnancy_input').value;
           }
 
-          // Ensure babies (infants), children, and teens are not assigned as married
+          // Ensure babies, children, and teens are not assigned as married
           if (profile.age === 'infant' || profile.age === 'child' || profile.age === 'teen') {
             profile.maritalStatus = "Not married";
           }
@@ -486,7 +502,7 @@
             'old_elderly': '85+ years'
           }[profile.age];
 
-          // Generate name using gender identity (instead of sex) and parsed age (parseInt extracts the starting number)
+          // Generate name using gender identity and parsed age (parseInt extracts the starting number)
           const ageNum = parseInt(ageDisplay);
           const name = generateName(country, profile.genderIdentity, profile.religion, ageNum);
 
