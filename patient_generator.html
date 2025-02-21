@@ -17,509 +17,517 @@
       })
       .catch(error => console.error('Error loading header:', error));
   </script>
-    <main class="container py-5">
-        <!-- Attribution at the Top -->
-        <div class="d-flex align-items-center mb-3">
-          <p class="mb-0">Created by Andrew Lonsdale and Matt Bowker at DASH.</p>
-          <a href="https://dash.northumbria.nhs.uk/" class="ms-2">
-            <img src="static/images/dash-logo.webp" alt="DASH Logo" style="height: 40px;">
-          </a>
-        </div>
-    
-<body class="bg-light">
-  <div class="container py-5">
-    <h1 class="mb-4">Patient Demographics Generator</h1>
-    
-    <!-- Country Selection -->
-    <div class="mb-4">
-      <label for="country" class="form-label">Select Country:</label>
-      <select class="form-select" id="country">
-        <option value="United_Kingdom">United Kingdom</option>
-        <option value="United_States">United States</option>
-        <option value="New_Zealand">New Zealand</option>
-        <option value="Australia">Australia</option>
-        <option value="Canada">Canada</option>
-        <option value="India">India</option>
-      </select>
+  <main class="container py-5">
+    <!-- Attribution at the Top -->
+    <div class="d-flex align-items-center mb-3">
+      <p class="mb-0">Created by Andrew Lonsdale and Matt Bowker at DASH.</p>
+      <a href="https://dash.northumbria.nhs.uk/" class="ms-2">
+        <img src="static/images/dash-logo.webp" alt="DASH Logo" style="height: 40px;">
+      </a>
     </div>
 
-    <!-- Demographics Form -->
-    <form id="demographicsForm">
-      <!-- Age -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Age</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="age_preference" value="specify" checked>
-            <label class="form-check-label">Specify age bracket</label>
-          </div>
-          <select class="form-select mt-2" id="age_bracket">
-            <option value="infant">Infant (0-2)</option>
-            <option value="child">Child (3-12)</option>
-            <option value="teen">Teen (13-19)</option>
-            <option value="young_adult">Young Adult (20-35)</option>
-            <option value="adult">Adult (36-50)</option>
-            <option value="middle_age">Middle Age (51-65)</option>
-            <option value="young_elderly">Young Elderly (65-74)</option>
-            <option value="middle_elderly">Middle Elderly (75-84)</option>
-            <option value="old_elderly">Old Elderly (85+)</option>
+    <body class="bg-light">
+      <div class="container py-5">
+        <h1 class="mb-4">Patient Demographics Generator</h1>
+        
+        <!-- Country Selection -->
+        <div class="mb-4">
+          <label for="country" class="form-label">Select Country:</label>
+          <select class="form-select" id="country">
+            <option value="United_Kingdom">United Kingdom</option>
+            <option value="United_States">United States</option>
+            <option value="New_Zealand">New Zealand</option>
+            <option value="Australia">Australia</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
           </select>
         </div>
+
+        <!-- Demographics Form -->
+        <form id="demographicsForm">
+          <!-- Age -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Age</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="age_preference" value="specify" checked>
+                <label class="form-check-label">Specify age bracket</label>
+              </div>
+              <select class="form-select mt-2" id="age_bracket">
+                <option value="infant">Infant (0-2)</option>
+                <option value="child">Child (3-12)</option>
+                <option value="teen">Teen (13-19)</option>
+                <option value="young_adult">Young Adult (20-35)</option>
+                <option value="adult">Adult (36-50)</option>
+                <option value="middle_age">Middle Age (51-65)</option>
+                <option value="young_elderly">Young Elderly (65-74)</option>
+                <option value="middle_elderly">Middle Elderly (75-84)</option>
+                <option value="old_elderly">Old Elderly (85+)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Race/Ethnicity -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Race/Ethnicity</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="ethnicity_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="ethnicity_preference" value="specify">
+                <label class="form-check-label">Specify ethnicity</label>
+              </div>
+              <!-- Changed from text input to dropdown -->
+              <select class="form-select mt-2" id="ethnicity_input" disabled></select>
+            </div>
+          </div>
+
+          <!-- First Language -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">First Language</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language_preference" value="specify">
+                <label class="form-check-label">Specify language</label>
+              </div>
+              <!-- Changed from text input to dropdown -->
+              <select class="form-select mt-2" id="language_input" disabled></select>
+            </div>
+          </div>
+
+          <!-- Religion -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Religion</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="religion_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="religion_preference" value="specify">
+                <label class="form-check-label">Specify religion</label>
+              </div>
+              <input type="text" class="form-control mt-2" id="religion_input" disabled>
+            </div>
+          </div>
+
+          <!-- Sex -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Sex</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sex_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sex_preference" value="specify">
+                <label class="form-check-label">Specify sex</label>
+              </div>
+              <select class="form-select mt-2" id="sex_input" disabled>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="intersex">Intersex</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Gender Identity -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Gender Identity</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender_preference" value="specify">
+                <label class="form-check-label">Specify gender identity</label>
+              </div>
+              <select class="form-select mt-2" id="gender_input" disabled>
+                <option value="cisgender_male">Cisgender Male</option>
+                <option value="cisgender_female">Cisgender Female</option>
+                <option value="transgender_male">Transgender Male</option>
+                <option value="transgender_female">Transgender Female</option>
+                <option value="non_binary">Non-binary</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pregnancy Status -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Pregnancy Status</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="pregnancy_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly (based on sex/age)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="pregnancy_preference" value="specify">
+                <label class="form-check-label">Specify pregnancy status</label>
+              </div>
+              <select class="form-select mt-2" id="pregnancy_input" disabled>
+                <option value="not_pregnant">Not Pregnant</option>
+                <option value="first_trimester">First Trimester</option>
+                <option value="second_trimester">Second Trimester</option>
+                <option value="third_trimester">Third Trimester</option>
+                <option value="postpartum">Postpartum</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Sexual Orientation -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Sexual Orientation</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="orientation_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="orientation_preference" value="specify">
+                <label class="form-check-label">Specify sexual orientation</label>
+              </div>
+              <!-- Changed from text input to dropdown -->
+              <select class="form-select mt-2" id="orientation_input" disabled></select>
+            </div>
+          </div>
+
+          <!-- Marital Status -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Marital Status</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="marital_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly based on country demographics</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="marital_preference" value="specify">
+                <label class="form-check-label">Specify marital status</label>
+              </div>
+              <input type="text" class="form-control mt-2" id="marital_input" disabled>
+            </div>
+          </div>
+
+          <!-- Disability Status -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="mb-0">Disability Status</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="disability_preference" value="random" checked>
+                <label class="form-check-label">Generate randomly</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="disability_preference" value="specify">
+                <label class="form-check-label">Specify disability status</label>
+              </div>
+              <input type="text" class="form-control mt-2" id="disability_input" disabled>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Generate Patient</button>
+        </form>
+
+        <!-- Results Section -->
+        <div id="results" class="mt-4" style="display: none;">
+          <h2>Generated Patient Profile</h2>
+          <div class="card">
+            <div class="card-body" id="patientProfile">
+              <!-- Results will be inserted here -->
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- Footer Include -->
+      <div id="footer"></div>
+      <script>
+        // Load the footer from footer.html and insert it into the #footer div
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading footer:', error));
+      </script>
 
-      <!-- Race/Ethnicity -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Race/Ethnicity</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="ethnicity_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="ethnicity_preference" value="specify">
-            <label class="form-check-label">Specify ethnicity</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="ethnicity_input" disabled>
-        </div>
-      </div>
-
-      <!-- First Language -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">First Language</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="language_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="language_preference" value="specify">
-            <label class="form-check-label">Specify language</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="language_input" disabled>
-        </div>
-      </div>
-
-      <!-- Religion -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Religion</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="religion_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="religion_preference" value="specify">
-            <label class="form-check-label">Specify religion</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="religion_input" disabled>
-        </div>
-      </div>
-
-      <!-- Sex -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Sex</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="sex_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="sex_preference" value="specify">
-            <label class="form-check-label">Specify sex</label>
-          </div>
-          <select class="form-select mt-2" id="sex_input" disabled>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="intersex">Intersex</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Gender Identity -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Gender Identity</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender_preference" value="specify">
-            <label class="form-check-label">Specify gender identity</label>
-          </div>
-          <select class="form-select mt-2" id="gender_input" disabled>
-            <option value="cisgender_male">Cisgender Male</option>
-            <option value="cisgender_female">Cisgender Female</option>
-            <option value="transgender_male">Transgender Male</option>
-            <option value="transgender_female">Transgender Female</option>
-            <option value="non_binary">Non-binary</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Pregnancy Status -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Pregnancy Status</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="pregnancy_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly (based on sex/age)</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="pregnancy_preference" value="specify">
-            <label class="form-check-label">Specify pregnancy status</label>
-          </div>
-          <select class="form-select mt-2" id="pregnancy_input" disabled>
-            <option value="not_pregnant">Not Pregnant</option>
-            <option value="first_trimester">First Trimester</option>
-            <option value="second_trimester">Second Trimester</option>
-            <option value="third_trimester">Third Trimester</option>
-            <option value="postpartum">Postpartum</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Sexual Orientation -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Sexual Orientation</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="orientation_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="orientation_preference" value="specify">
-            <label class="form-check-label">Specify sexual orientation</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="orientation_input" disabled>
-        </div>
-      </div>
-
-      <!-- Marital Status -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Marital Status</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="marital_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly based on country demographics</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="marital_preference" value="specify">
-            <label class="form-check-label">Specify marital status</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="marital_input" disabled>
-        </div>
-      </div>
-
-      <!-- Disability Status -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Disability Status</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="disability_preference" value="random" checked>
-            <label class="form-check-label">Generate randomly</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="disability_preference" value="specify">
-            <label class="form-check-label">Specify disability status</label>
-          </div>
-          <input type="text" class="form-control mt-2" id="disability_input" disabled>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Generate Patient</button>
-    </form>
-
-    <!-- Results Section -->
-    <div id="results" class="mt-4" style="display: none;">
-      <h2>Generated Patient Profile</h2>
-      <div class="card">
-        <div class="card-body" id="patientProfile">
-          <!-- Results will be inserted here -->
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- Footer Include -->
-    <div id="footer"></div>
-    <script>
-      // Load the footer from footer.html and insert it into the #footer div
-      fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Enable/disable input fields based on radio selection
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        const inputId = this.name.split('_')[0] + '_input';
-        const input = document.getElementById(inputId);
-        if (input) {
-          input.disabled = this.value === 'random';
-        }
-      });
-    });
-
-    // Load country and name data
-    let countryData, nameData;
-    Promise.all([
-      fetch('static/data/country_data.json'),
-      fetch('static/data/name_data.json')
-    ])
-      .then(responses => Promise.all(responses.map(response => response.json())))
-      .then(([countryJson, nameJson]) => {
-        countryData = countryJson;
-        nameData = nameJson;
-      })
-      .catch(error => console.error('Error loading country data:', error));
-
-    // Helper function to get random item based on probabilities
-    function getRandomFromDistribution(items) {
-      const total = items.reduce((sum, item) => sum + item.percentage, 0);
-      let random = Math.random() * total;
-      for (const item of items) {
-        random -= item.percentage;
-        if (random <= 0) {
-          return item.name || item.identity || item.orientation || item.status;
-        }
-      }
-      return items[0].name || items[0].identity || items[0].orientation || items[0].status;
-    }
-
-    // Calculate pregnancy probability based on age and sex
-    function calculatePregnancyProbability(age, sex) {
-      if (sex !== 'female' || age < 13 || age > 50) return 0;
-      if (age >= 20 && age <= 35) return 0.05;
-      return 0.02;
-    }
-
-    // Generate appropriate name based on demographics
-    function generateName(country, sex, religion, age) {
-      const nameDataset = nameData[country];
-      if (!nameDataset) return { firstName: "Unknown", lastName: "Unknown" };
-
-      let religiousNames = nameDataset.religious_associations[religion];
-      if (!religiousNames) {
-        religiousNames = nameDataset.religious_associations[Object.keys(nameDataset.religious_associations)[0]];
-      }
-
-      const currentYear = new Date().getFullYear();
-      const birthYear = currentYear - age;
-      const decade = Math.floor(birthYear / 10) * 10 + "s";
-
-      let firstName;
-      const namePool = sex === 'female' ? religiousNames.female_first : religiousNames.male_first;
-
-      if (nameDataset.decade_popularity && nameDataset.decade_popularity[decade]) {
-        const decadeNames = nameDataset.decade_popularity[decade].filter(name => {
-          if (sex === 'female' && name.endsWith('a')) return true;
-          if (sex === 'male' && !name.endsWith('a')) return true;
-          return false;
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+      <script>
+        // Enable/disable input fields based on radio selection
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+          radio.addEventListener('change', function() {
+            const inputId = this.name.split('_')[0] + '_input';
+            const input = document.getElementById(inputId);
+            if (input) {
+              input.disabled = this.value === 'random';
+            }
+          });
         });
-        if (decadeNames.length > 0) {
-          firstName = decadeNames[Math.floor(Math.random() * decadeNames.length)];
+
+        // Load country and name data
+        let countryData, nameData;
+        Promise.all([
+          fetch('static/data/country_data.json'),
+          fetch('static/data/name_data.json')
+        ])
+          .then(responses => Promise.all(responses.map(response => response.json())))
+          .then(([countryJson, nameJson]) => {
+            countryData = countryJson;
+            nameData = nameJson;
+            // Populate the dropdowns on initial load
+            populateDropdowns();
+          })
+          .catch(error => console.error('Error loading country data:', error));
+
+        // Populate dropdowns for ethnicity, language, and sexual orientation based on selected country
+        function populateDropdowns() {
+          const country = document.getElementById('country').value;
+          const demographics = countryData.countries[country].demographics;
+          
+          // Ethnicity dropdown
+          const ethnicitySelect = document.getElementById('ethnicity_input');
+          ethnicitySelect.innerHTML = "";
+          demographics.ethnicity.groups.forEach(group => {
+            const opt = document.createElement('option');
+            opt.value = group.name;
+            opt.textContent = group.name;
+            ethnicitySelect.appendChild(opt);
+          });
+          
+          // Language dropdown
+          const languageSelect = document.getElementById('language_input');
+          languageSelect.innerHTML = "";
+          demographics.first_language.languages.forEach(lang => {
+            const opt = document.createElement('option');
+            opt.value = lang.name;
+            opt.textContent = lang.name;
+            languageSelect.appendChild(opt);
+          });
+          
+          // Sexual Orientation dropdown
+          const orientationSelect = document.getElementById('orientation_input');
+          orientationSelect.innerHTML = "";
+          demographics.sexual_orientation.categories.forEach(orientation => {
+            const opt = document.createElement('option');
+            opt.value = orientation.orientation;
+            opt.textContent = orientation.orientation;
+            orientationSelect.appendChild(opt);
+          });
         }
-      }
 
-      if (!firstName) {
-        firstName = namePool[Math.floor(Math.random() * namePool.length)];
-      }
+        // Update dropdowns when the country selection changes
+        document.getElementById('country').addEventListener('change', populateDropdowns);
 
-      let lastName;
-      if (religiousNames.surnames.hasOwnProperty(sex)) {
-        lastName = religiousNames.surnames[sex][0];
-      } else if (religiousNames.surnames.general) {
-        lastName = religiousNames.surnames.general[Math.floor(Math.random() * religiousNames.surnames.general.length)];
-      } else {
-        lastName = "Unknown";
-      }
+        // Helper function to get random item based on probabilities
+        function getRandomFromDistribution(items) {
+          const total = items.reduce((sum, item) => sum + item.percentage, 0);
+          let random = Math.random() * total;
+          for (const item of items) {
+            random -= item.percentage;
+            if (random <= 0) {
+              return item.name || item.identity || item.orientation || item.status;
+            }
+          }
+          return items[0].name || items[0].identity || items[0].orientation || items[0].status;
+        }
 
-      return { firstName, lastName };
-    }
+        // Calculate pregnancy probability based on age and sex
+        function calculatePregnancyProbability(age, sex) {
+          if (sex !== 'female' || age < 13 || age > 50) return 0;
+          if (age >= 20 && age <= 35) return 0.05;
+          return 0.02;
+        }
 
-    // Generate disability status
-    function generateDisability() {
-      return Math.random() < 0.15;
-    }
+        // Generate appropriate name based on demographics using gender identity instead of sex
+        function generateName(country, genderIdentity, religion, age) {
+          const nameDataset = nameData[country];
+          if (!nameDataset) return { firstName: "Unknown", lastName: "Unknown" };
 
-    // Calculate typicality of the generated profile based on country demographics
-    function calculateTypicality(profile, countryDemographics) {
-      let probabilities = {
-        ethnicity: countryDemographics.ethnicity.groups.find(g => g.name === profile.ethnicity)?.percentage || 1,
-        religion: countryDemographics.religion.groups.find(g => g.name === profile.religion)?.percentage ||
-                  (profile.religion === 'No Religion' ? countryDemographics.religion.no_religion_percentage : 1),
-        language: countryDemographics.first_language.languages.find(l => l.name === profile.language)?.percentage || 1,
-        gender: countryDemographics.gender_identity.categories.find(g => g.identity === profile.genderIdentity)?.percentage || 1,
-        orientation: countryDemographics.sexual_orientation.categories.find(o => o.orientation === profile.sexualOrientation)?.percentage || 1,
-        marital: countryDemographics.marital_status.categories.find(m => m.status === profile.maritalStatus)?.percentage || 1
-      };
+          let religiousNames = nameDataset.religious_associations[religion];
+          if (!religiousNames) {
+            // Fallback: use the first available religious association
+            religiousNames = nameDataset.religious_associations[Object.keys(nameDataset.religious_associations)[0]];
+          }
 
-      // Convert percentages to decimals
-      Object.keys(probabilities).forEach(key => {
-        probabilities[key] = probabilities[key] / 100;
-      });
+          const currentYear = new Date().getFullYear();
+          const birthYear = currentYear - age;
+          const decade = Math.floor(birthYear / 10) * 10 + "s";
 
-      const combinedProbability = Object.values(probabilities).reduce((a, b) => a * b);
+          let firstName;
+          // Use decade popularity if available
+          if (nameDataset.decade_popularity && nameDataset.decade_popularity[decade]) {
+            const decadeNames = nameDataset.decade_popularity[decade].filter(name => {
+              if ((genderIdentity === 'cisgender_female' || genderIdentity === 'transgender_female') && name.endsWith('a')) return true;
+              if ((genderIdentity === 'cisgender_male' || genderIdentity === 'transgender_male') && !name.endsWith('a')) return true;
+              return false;
+            });
+            if (decadeNames.length > 0) {
+              firstName = decadeNames[Math.floor(Math.random() * decadeNames.length)];
+            }
+          }
 
-      let summary = "";
-      if (combinedProbability >= 0.1) {
-        summary = "This is a fairly typical demographic profile for this country.";
-      } else if (combinedProbability >= 0.01) {
-        summary = "This demographic combination is somewhat uncommon, but not rare.";
-      } else if (combinedProbability >= 0.001) {
-        summary = "This is a relatively unusual demographic combination.";
-      } else {
-        summary = "This is a rare demographic combination.";
-      }
+          // If no decade-based name, select from the gender-specific pool
+          let genderPool;
+          if (genderIdentity === 'cisgender_female' || genderIdentity === 'transgender_female') {
+            genderPool = religiousNames.female_first;
+          } else if (genderIdentity === 'cisgender_male' || genderIdentity === 'transgender_male') {
+            genderPool = religiousNames.male_first;
+          } else if (genderIdentity === 'non_binary') {
+            // For non-binary, combine both pools
+            genderPool = [...religiousNames.female_first, ...religiousNames.male_first];
+          } else {
+            genderPool = religiousNames.male_first;
+          }
 
-      let notableAspects = [];
-      if (probabilities.ethnicity < 0.1) notableAspects.push(`${profile.ethnicity} ethnicity (${(probabilities.ethnicity * 100).toFixed(1)}% of population)`);
-      if (probabilities.religion < 0.1) notableAspects.push(`${profile.religion} religion (${(probabilities.religion * 100).toFixed(1)}% of population)`);
-      if (probabilities.language < 0.1) notableAspects.push(`${profile.language} as first language (${(probabilities.language * 100).toFixed(1)}% of population)`);
+          if (!firstName) {
+            firstName = genderPool[Math.floor(Math.random() * genderPool.length)];
+          }
 
-      if (notableAspects.length > 0) {
-        summary += " Notable aspects include: " + notableAspects.join(", ") + ".";
-      }
+          // Choose last name based on gender identity when available
+          let lastName;
+          if ((genderIdentity === 'cisgender_female' || genderIdentity === 'transgender_female') && religiousNames.surnames.female) {
+            lastName = religiousNames.surnames.female[Math.floor(Math.random() * religiousNames.surnames.female.length)];
+          } else if ((genderIdentity === 'cisgender_male' || genderIdentity === 'transgender_male') && religiousNames.surnames.male) {
+            lastName = religiousNames.surnames.male[Math.floor(Math.random() * religiousNames.surnames.male.length)];
+          } else if (religiousNames.surnames.general) {
+            lastName = religiousNames.surnames.general[Math.floor(Math.random() * religiousNames.surnames.general.length)];
+          } else {
+            lastName = "Unknown";
+          }
 
-      return {
-        probability: combinedProbability,
-        summary: summary
-      };
-    }
+          return { firstName, lastName };
+        }
 
-    // Form submission handler
-    document.getElementById('demographicsForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+        // Generate disability status
+        function generateDisability() {
+          return Math.random() < 0.15;
+        }
 
-      const country = document.getElementById('country').value;
-      const countryDemographics = countryData.countries[country].demographics;
+        // Form submission handler
+        document.getElementById('demographicsForm').addEventListener('submit', function(e) {
+          e.preventDefault();
 
-      const profile = {
-        age: document.getElementById('age_bracket').value,
-        language: document.querySelector('input[name="language_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.first_language.languages)
-          : document.getElementById('language_input').value,
-        ethnicity: document.querySelector('input[name="ethnicity_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.ethnicity.groups)
-          : document.getElementById('ethnicity_input').value,
-        religion: document.querySelector('input[name="religion_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.religion.groups)
-          : document.getElementById('religion_input').value,
-        sex: document.querySelector('input[name="sex_preference"]:checked').value === 'random'
-          ? (Math.random() < 0.5 ? 'male' : 'female')
-          : document.getElementById('sex_input').value,
-        genderIdentity: document.querySelector('input[name="gender_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.gender_identity.categories)
-          : document.getElementById('gender_input').value,
-        sexualOrientation: document.querySelector('input[name="orientation_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.sexual_orientation.categories)
-          : document.getElementById('orientation_input').value,
-        maritalStatus: document.querySelector('input[name="marital_preference"]:checked').value === 'random'
-          ? getRandomFromDistribution(countryDemographics.marital_status.categories)
-          : document.getElementById('marital_input').value,
-        disability: document.querySelector('input[name="disability_preference"]:checked').value === 'random'
-          ? (generateDisability() ? 'Has disability' : 'No disability')
-          : document.getElementById('disability_input').value
-      };
+          const country = document.getElementById('country').value;
+          const countryDemographics = countryData.countries[country].demographics;
 
-      if (profile.sex === 'female') {
-        profile.pregnancyStatus = document.querySelector('input[name="pregnancy_preference"]:checked').value === 'random'
-          ? (Math.random() < calculatePregnancyProbability(30, 'female') ? 'Pregnant' : 'Not pregnant')
-          : document.getElementById('pregnancy_input').value;
-      }
+          const profile = {
+            age: document.getElementById('age_bracket').value,
+            language: document.querySelector('input[name="language_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.first_language.languages)
+              : document.getElementById('language_input').value,
+            ethnicity: document.querySelector('input[name="ethnicity_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.ethnicity.groups)
+              : document.getElementById('ethnicity_input').value,
+            religion: document.querySelector('input[name="religion_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.religion.groups)
+              : document.getElementById('religion_input').value,
+            sex: document.querySelector('input[name="sex_preference"]:checked').value === 'random'
+              ? (Math.random() < 0.5 ? 'male' : 'female')
+              : document.getElementById('sex_input').value,
+            // Now using gender identity for naming:
+            genderIdentity: document.querySelector('input[name="gender_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.gender_identity.categories)
+              : document.getElementById('gender_input').value,
+            sexualOrientation: document.querySelector('input[name="orientation_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.sexual_orientation.categories)
+              : document.getElementById('orientation_input').value,
+            maritalStatus: document.querySelector('input[name="marital_preference"]:checked').value === 'random'
+              ? getRandomFromDistribution(countryDemographics.marital_status.categories)
+              : document.getElementById('marital_input').value,
+            disability: document.querySelector('input[name="disability_preference"]:checked').value === 'random'
+              ? (generateDisability() ? 'Has disability' : 'No disability')
+              : document.getElementById('disability_input').value
+          };
 
-      // Ensure babies (infants) are not assigned as married
-      if (profile.age === 'infant' || 'child' || 'teen') {
-        profile.maritalStatus = "Not married";
-      }
+          if (profile.sex === 'female') {
+            profile.pregnancyStatus = document.querySelector('input[name="pregnancy_preference"]:checked').value === 'random'
+              ? (Math.random() < calculatePregnancyProbability(30, 'female') ? 'Pregnant' : 'Not pregnant')
+              : document.getElementById('pregnancy_input').value;
+          }
 
-      const ageDisplay = {
-        'infant': '0-2 years',
-        'child': '3-12 years',
-        'teen': '13-19 years',
-        'young_adult': '20-35 years',
-        'adult': '36-50 years',
-        'middle_age': '51-65 years',
-        'young_elderly': '65-74 years',
-        'middle_elderly': '75-84 years',
-        'old_elderly': '85+ years'
-      }[profile.age];
+          // Ensure babies (infants), children, and teens are not assigned as married
+          if (profile.age === 'infant' || profile.age === 'child' || profile.age === 'teen') {
+            profile.maritalStatus = "Not married";
+          }
 
-      // Generate name using parsed age (parseInt will extract the starting number)
-      const ageNum = parseInt(ageDisplay);
-      const name = generateName(country, profile.sex, profile.religion, ageNum);
+          const ageDisplay = {
+            'infant': '0-2 years',
+            'child': '3-12 years',
+            'teen': '13-19 years',
+            'young_adult': '20-35 years',
+            'adult': '36-50 years',
+            'middle_age': '51-65 years',
+            'young_elderly': '65-74 years',
+            'middle_elderly': '75-84 years',
+            'old_elderly': '85+ years'
+          }[profile.age];
 
-      // Build the profile HTML
-      let profileHTML = `
-        <dl class="row">
-          <dt class="col-sm-3">Name:</dt>
-          <dd class="col-sm-9">${name.firstName} ${name.lastName}</dd>
-          <dt class="col-sm-3">Age:</dt>
-          <dd class="col-sm-9">${ageDisplay}</dd>
-          <dt class="col-sm-3">First Language:</dt>
-          <dd class="col-sm-9">${profile.language}</dd>
-          <dt class="col-sm-3">Ethnicity:</dt>
-          <dd class="col-sm-9">${profile.ethnicity}</dd>
-          <dt class="col-sm-3">Religion:</dt>
-          <dd class="col-sm-9">${profile.religion}</dd>
-          <dt class="col-sm-3">Sex:</dt>
-          <dd class="col-sm-9">${profile.sex.charAt(0).toUpperCase() + profile.sex.slice(1)}</dd>
-          <dt class="col-sm-3">Gender Identity:</dt>
-          <dd class="col-sm-9">${profile.genderIdentity}</dd>
-          ${profile.sex === 'female' ? `
-          <dt class="col-sm-3">Pregnancy Status:</dt>
-          <dd class="col-sm-9">${profile.pregnancyStatus}</dd>
-          ` : ''}
-          <dt class="col-sm-3">Sexual Orientation:</dt>
-          <dd class="col-sm-9">${profile.sexualOrientation}</dd>
-          <dt class="col-sm-3">Marital Status:</dt>
-          <dd class="col-sm-9">${profile.maritalStatus}</dd>
-          <dt class="col-sm-3">Disability Status:</dt>
-          <dd class="col-sm-9">${profile.disability}</dd>
-        </dl>
-      `;
+          // Generate name using gender identity (instead of sex) and parsed age (parseInt extracts the starting number)
+          const ageNum = parseInt(ageDisplay);
+          const name = generateName(country, profile.genderIdentity, profile.religion, ageNum);
 
-      // Calculate and append the typicality summary
-    //   const typicalityStats = calculateTypicality(profile, countryDemographics);
-    //   profileHTML += `
-    //     <dl class="row">
-    //       <dt class="col-sm-3">Summary:</dt>
-    //       <dd class="col-sm-9">${typicalityStats.summary}</dd>
-    //     </dl>
-    //   `;
+          // Build the profile HTML
+          let profileHTML = `
+            <dl class="row">
+              <dt class="col-sm-3">Name:</dt>
+              <dd class="col-sm-9">${name.firstName} ${name.lastName}</dd>
+              <dt class="col-sm-3">Age:</dt>
+              <dd class="col-sm-9">${ageDisplay}</dd>
+              <dt class="col-sm-3">First Language:</dt>
+              <dd class="col-sm-9">${profile.language}</dd>
+              <dt class="col-sm-3">Ethnicity:</dt>
+              <dd class="col-sm-9">${profile.ethnicity}</dd>
+              <dt class="col-sm-3">Religion:</dt>
+              <dd class="col-sm-9">${profile.religion}</dd>
+              <dt class="col-sm-3">Sex:</dt>
+              <dd class="col-sm-9">${profile.sex.charAt(0).toUpperCase() + profile.sex.slice(1)}</dd>
+              <dt class="col-sm-3">Gender Identity:</dt>
+              <dd class="col-sm-9">${profile.genderIdentity}</dd>
+              ${profile.sex === 'female' ? `
+              <dt class="col-sm-3">Pregnancy Status:</dt>
+              <dd class="col-sm-9">${profile.pregnancyStatus}</dd>
+              ` : ''}
+              <dt class="col-sm-3">Sexual Orientation:</dt>
+              <dd class="col-sm-9">${profile.sexualOrientation}</dd>
+              <dt class="col-sm-3">Marital Status:</dt>
+              <dd class="col-sm-9">${profile.maritalStatus}</dd>
+              <dt class="col-sm-3">Disability Status:</dt>
+              <dd class="col-sm-9">${profile.disability}</dd>
+            </dl>
+          `;
 
-      // Display the results
-      const resultsDiv = document.getElementById('results');
-      const profileDiv = document.getElementById('patientProfile');
-      profileDiv.innerHTML = profileHTML;
-      resultsDiv.style.display = 'block';
-      resultsDiv.scrollIntoView({ behavior: 'smooth' });
-    });
-  </script>
-</body>
+          // Display the results
+          const resultsDiv = document.getElementById('results');
+          const profileDiv = document.getElementById('patientProfile');
+          profileDiv.innerHTML = profileHTML;
+          resultsDiv.style.display = 'block';
+          resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+      </script>
+    </body>
+  </main>
 </html>
