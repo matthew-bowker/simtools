@@ -1,0 +1,71 @@
+{
+    "United_Kingdom": {
+      "religious_associations": {
+        "Christian": {
+          "male_first": ["James", "John", "William", "Thomas", "David", "Michael", "Peter", "Christopher", "Daniel", "Matthew"],
+          "female_first": ["Mary", "Elizabeth", "Sarah", "Catherine", "Anna", "Rebecca", "Rachel", "Hannah", "Grace", "Faith"],
+          "surnames": {
+            "general": ["Smith", "Jones", "Williams", "Taylor", "Brown", "Davies", "Evans", "Wilson", "Thomas", "Roberts"]
+          }
+        },
+        "Muslim": {
+          "male_first": ["Mohammed", "Ahmed", "Ali", "Ibrahim", "Omar", "Hassan", "Yusuf", "Hamza", "Zain", "Abdul"],
+          "female_first": ["Fatima", "Aisha", "Maryam", "Zainab", "Amira", "Sofia", "Noor", "Layla", "Sara", "Hana"],
+          "surnames": {
+            "general": ["Khan", "Ahmed", "Ali", "Mohammed", "Rahman", "Hussain", "Malik", "Sheikh", "Syed"]
+          }
+        },
+        "Hindu": {
+          "male_first": ["Arjun", "Krishna", "Arun", "Raj", "Vijay", "Amit", "Rahul", "Sunil", "Deepak", "Ravi"],
+          "female_first": ["Priya", "Anjali", "Pooja", "Deepa", "Meera", "Anita", "Sunita", "Kavita", "Maya", "Lata"],
+          "surnames": {
+            "general": ["Patel", "Shah", "Sharma", "Kumar", "Mehta", "Puri", "Verma", "Gupta", "Malhotra"]
+          }
+        },
+        "Sikh": {
+          "male_first": ["Gurpreet", "Harpreet", "Manpreet", "Jaspreet", "Sukhpreet", "Rajinder", "Amarjit", "Kuldeep", "Gurmeet", "Jaspal"],
+          "female_first": ["Harpreet", "Manpreet", "Jaspreet", "Sukhpreet", "Gurpreet", "Kulwinder", "Rajwinder", "Balwinder", "Amarjit", "Parminder"],
+          "surnames": {
+            "male": ["Singh"],
+            "female": ["Kaur"]
+          }
+        }
+      },
+      "decade_popularity": {
+        "1950s": ["Margaret", "Patricia", "Barbara", "Susan", "John", "Robert", "Michael", "David"],
+        "1960s": ["Susan", "Karen", "Linda", "Patricia", "John", "David", "Michael", "Paul"],
+        "1970s": ["Sarah", "Claire", "Nicola", "Emma", "Paul", "Mark", "David", "Andrew"],
+        "1980s": ["Emma", "Sarah", "Laura", "Rebecca", "Christopher", "James", "David", "Daniel"],
+        "1990s": ["Jessica", "Emily", "Sophie", "Charlotte", "James", "Daniel", "Thomas", "Matthew"],
+        "2000s": ["Emily", "Sophie", "Jessica", "Olivia", "Jack", "Thomas", "Joshua", "Harry"],
+        "2010s": ["Olivia", "Sophia", "Emma", "Ava", "Oliver", "Jack", "Harry", "George"],
+        "2020s": ["Olivia", "Amelia", "Isla", "Ava", "Oliver", "George", "Arthur", "Noah"]
+      }
+    },
+    "India": {
+      "religious_associations": {
+        "Hindu": {
+          "male_first": ["Aarav", "Arjun", "Advait", "Krishna", "Vihaan", "Aditya", "Aryan", "Vivaan", "Dhruv", "Ishaan"],
+          "female_first": ["Aadhya", "Ananya", "Diya", "Kavya", "Saanvi", "Pari", "Aanya", "Aaradhya", "Avni", "Anvi"],
+          "surnames": {
+            "general": ["Sharma", "Verma", "Kumar", "Gupta", "Malhotra", "Agarwal", "Yadav", "Joshi"]
+          }
+        },
+        "Muslim": {
+          "male_first": ["Mohammed", "Ahmed", "Ali", "Ibrahim", "Amir", "Zain", "Yusuf", "Hamza", "Omar", "Hassan"],
+          "female_first": ["Fatima", "Aisha", "Zara", "Sofia", "Amira", "Zainab", "Maryam", "Sara", "Noor", "Layla"],
+          "surnames": {
+            "general": ["Khan", "Ahmed", "Sheikh", "Syed", "Malik", "Qureshi", "Ansari", "Mirza", "Shaikh", "Pathan"]
+          }
+        },
+        "Sikh": {
+          "male_first": ["Gurpreet", "Harpreet", "Manpreet", "Jaspreet", "Sukhpreet", "Rajinder", "Amarjit", "Kuldeep", "Gurmeet", "Jaspal"],
+          "female_first": ["Harpreet", "Manpreet", "Jaspreet", "Sukhpreet", "Gurpreet", "Kulwinder", "Rajwinder", "Balwinder", "Amarjit", "Parminder"],
+          "surnames": {
+            "male": ["Singh"],
+            "female": ["Kaur"]
+          }
+        }
+      }
+    }
+  }

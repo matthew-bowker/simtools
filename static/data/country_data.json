@@ -1,0 +1,902 @@
+{
+    "countries": {
+      "United_Kingdom": {
+        "demographics": {
+          "ethnicity": {
+            "groups": [
+              {
+                "name": "White",
+                "percentage": 81.7,
+                "subgroups": [
+                  {
+                    "name": "White British",
+                    "percentage": 74.4
+                  },
+                  {
+                    "name": "White Other",
+                    "percentage": 7.3
+                  }
+                ]
+              },
+              {
+                "name": "Asian",
+                "percentage": 9.3
+              },
+              {
+                "name": "Black",
+                "percentage": 3.0
+              },
+              {
+                "name": "Mixed",
+                "percentage": 2.9
+              },
+              {
+                "name": "Other",
+                "percentage": 3.1
+              }
+            ],
+            "source": "UK Census",
+            "year": 2021,
+            "methodology_notes": "Self-reported census data"
+          },
+          "first_language": {
+            "languages": [
+              {
+                "name": "English",
+                "percentage": 92.3
+              },
+              {
+                "name": "Polish",
+                "percentage": 1.0
+              },
+              {
+                "name": "Punjabi",
+                "percentage": 0.5
+              },
+              {
+                "name": "Urdu",
+                "percentage": 0.5
+              },
+              {
+                "name": "Other",
+                "percentage": 5.7
+              }
+            ],
+            "source": "UK Census",
+            "year": 2021
+          },
+          "religion": {
+            "groups": [
+              {
+                "name": "Christian",
+                "percentage": 46.2
+              },
+              {
+                "name": "Muslim",
+                "percentage": 6.5
+              },
+              {
+                "name": "Hindu",
+                "percentage": 1.7
+              },
+              {
+                "name": "Sikh",
+                "percentage": 0.9
+              },
+              {
+                "name": "Other",
+                "percentage": 1.7
+              }
+            ],
+            "no_religion_percentage": 37.2,
+            "source": "UK Census",
+            "year": 2021
+          },
+          "gender_identity": {
+            "categories": [
+              {
+                "identity": "Female",
+                "percentage": 50.6
+              },
+              {
+                "identity": "Male",
+                "percentage": 49.4
+              },
+              {
+                "identity": "Trans/Non-binary",
+                "percentage": 0.5
+              }
+            ],
+            "source": "UK Census",
+            "year": 2021,
+            "methodology_notes": "Trans/Non-binary percentage is an estimate"
+          },
+          "sexual_orientation": {
+            "categories": [
+              {
+                "orientation": "Heterosexual",
+                "percentage": 93.2
+              },
+              {
+                "orientation": "Gay or Lesbian",
+                "percentage": 1.8
+              },
+              {
+                "orientation": "Bisexual",
+                "percentage": 1.1
+              },
+              {
+                "orientation": "Other",
+                "percentage": 0.7
+              },
+              {
+                "orientation": "Prefer not to say",
+                "percentage": 3.2
+              }
+            ],
+            "source": "Office for National Statistics",
+            "year": 2021
+          },
+          "marital_status": {
+            "categories": [
+              {
+                "status": "Married",
+                "percentage": 44.7
+              },
+              {
+                "status": "Single",
+                "percentage": 37.9
+              },
+              {
+                "status": "Divorced",
+                "percentage": 9.1
+              },
+              {
+                "status": "Widowed",
+                "percentage": 7.8
+              }
+            ],
+            "total_married_percentage": 44.7,
+            "source": "UK Census",
+            "year": 2021
+          }
+        }
+      },
+      "United_States": {
+        "demographics": {
+          "ethnicity": {
+            "groups": [
+              {
+                "name": "White",
+                "percentage": 59.3
+              },
+              {
+                "name": "Hispanic/Latino",
+                "percentage": 18.9
+              },
+              {
+                "name": "Black",
+                "percentage": 13.6
+              },
+              {
+                "name": "Asian",
+                "percentage": 6.1
+              },
+              {
+                "name": "Other",
+                "percentage": 2.1
+              }
+            ],
+            "source": "US Census Bureau",
+            "year": 2022
+          },
+          "first_language": {
+            "languages": [
+              {
+                "name": "English",
+                "percentage": 78.2
+              },
+              {
+                "name": "Spanish",
+                "percentage": 13.5
+              },
+              {
+                "name": "Chinese",
+                "percentage": 1.1
+              },
+              {
+                "name": "Other",
+                "percentage": 7.2
+              }
+            ],
+            "source": "American Community Survey",
+            "year": 2022
+          },
+          "religion": {
+            "groups": [
+              {
+                "name": "Christian",
+                "percentage": 63.0,
+                "denominations": [
+                  {
+                    "name": "Protestant",
+                    "percentage": 40.0
+                  },
+                  {
+                    "name": "Catholic",
+                    "percentage": 21.0
+                  },
+                  {
+                    "name": "Other Christian",
+                    "percentage": 2.0
+                  }
+                ]
+              },
+              {
+                "name": "Jewish",
+                "percentage": 2.4
+              },
+              {
+                "name": "Muslim",
+                "percentage": 1.1
+              },
+              {
+                "name": "Other",
+                "percentage": 5.5
+              }
+            ],
+            "no_religion_percentage": 28.0,
+            "source": "Pew Research",
+            "year": 2022
+          },
+          "gender_identity": {
+            "categories": [
+              {
+                "identity": "Female",
+                "percentage": 50.8
+              },
+              {
+                "identity": "Male",
+                "percentage": 49.2
+              },
+              {
+                "identity": "Trans/Non-binary",
+                "percentage": 0.6
+              }
+            ],
+            "source": "US Census Bureau",
+            "year": 2022
+          },
+          "sexual_orientation": {
+            "categories": [
+              {
+                "orientation": "Heterosexual",
+                "percentage": 90.8
+              },
+              {
+                "orientation": "Gay or Lesbian",
+                "percentage": 2.1
+              },
+              {
+                "orientation": "Bisexual",
+                "percentage": 1.4
+              },
+              {
+                "orientation": "Other",
+                "percentage": 5.7
+              }
+            ],
+            "source": "Gallup Poll",
+            "year": 2022
+          },
+          "marital_status": {
+            "total_married_percentage": 48.1,
+            "categories": [
+              {
+                "status": "Married",
+                "percentage": 48.1
+              },
+              {
+                "status": "Never married",
+                "percentage": 33.8
+              },
+              {
+                "status": "Divorced",
+                "percentage": 11.0
+              },
+              {
+                "status": "Widowed",
+                "percentage": 7.1
+              }
+            ],
+            "source": "US Census Bureau",
+            "year": 2022
+          }
+        }
+      },
+      "New_Zealand": {
+        "demographics": {
+          "ethnicity": {
+            "groups": [
+              {
+                "name": "European",
+                "percentage": 64.1
+              },
+              {
+                "name": "Māori",
+                "percentage": 16.5
+              },
+              {
+                "name": "Asian",
+                "percentage": 15.3
+              },
+              {
+                "name": "Pacific Peoples",
+                "percentage": 8.1
+              },
+              {
+                "name": "Other",
+                "percentage": 2.7
+              }
+            ],
+            "source": "Stats NZ",
+            "year": 2022,
+            "methodology_notes": "Total exceeds 100% as people can identify with multiple ethnicities"
+          },
+          "first_language": {
+            "languages": [
+              {
+                "name": "English",
+                "percentage": 95.4
+              },
+              {
+                "name": "Te Reo Māori",
+                "percentage": 2.7
+              },
+              {
+                "name": "Samoan",
+                "percentage": 1.5
+              },
+              {
+                "name": "Other",
+                "percentage": 0.4
+              }
+            ],
+            "source": "Stats NZ",
+            "year": 2022
+          },
+          "religion": {
+            "groups": [
+              {
+                "name": "Christian",
+                "percentage": 37.0
+              },
+              {
+                "name": "Hindu",
+                "percentage": 2.6
+              },
+              {
+                "name": "Muslim",
+                "percentage": 1.3
+              },
+              {
+                "name": "Other",
+                "percentage": 2.1
+              }
+            ],
+            "no_religion_percentage": 48.2,
+            "source": "Stats NZ",
+            "year": 2022
+          },
+          "gender_identity": {
+            "categories": [
+              {
+                "identity": "Female",
+                "percentage": 50.9
+              },
+              {
+                "identity": "Male",
+                "percentage": 49.1
+              },
+              {
+                "identity": "Trans/Non-binary",
+                "percentage": 0.8
+              }
+            ],
+            "source": "Stats NZ",
+            "year": 2022
+          },
+          "sexual_orientation": {
+            "categories": [
+              {
+                "orientation": "Heterosexual",
+                "percentage": 92.2
+              },
+              {
+                "orientation": "Gay or Lesbian",
+                "percentage": 2.3
+              },
+              {
+                "orientation": "Bisexual",
+                "percentage": 2.1
+              },
+              {
+                "orientation": "Other",
+                "percentage": 3.4
+              }
+            ],
+            "source": "Stats NZ",
+            "year": 2022
+          },
+          "marital_status": {
+            "categories": [
+              {
+                "status": "Married/Civil Union",
+                "percentage": 45.8
+              },
+              {
+                "status": "Never Married",
+                "percentage": 38.1
+              },
+              {
+                "status": "Divorced/Separated",
+                "percentage": 10.2
+              },
+              {
+                "status": "Widowed",
+                "percentage": 5.9
+              }
+            ],
+            "total_married_percentage": 45.8,
+            "source": "Stats NZ",
+            "year": 2022
+          }
+        }
+      },
+      "Australia": {
+        "demographics": {
+          "ethnicity": {
+            "groups": [
+              {
+                "name": "European",
+                "percentage": 75.2
+              },
+              {
+                "name": "Asian",
+                "percentage": 16.4
+              },
+              {
+                "name": "Aboriginal and Torres Strait Islander",
+                "percentage": 3.2
+              },
+              {
+                "name": "Other",
+                "percentage": 5.2
+              }
+            ],
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          },
+          "first_language": {
+            "languages": [
+              {
+                "name": "English",
+                "percentage": 72.0
+              },
+              {
+                "name": "Mandarin",
+                "percentage": 2.5
+              },
+              {
+                "name": "Arabic",
+                "percentage": 1.4
+              },
+              {
+                "name": "Vietnamese",
+                "percentage": 1.2
+              },
+              {
+                "name": "Other",
+                "percentage": 22.9
+              }
+            ],
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          },
+          "religion": {
+            "groups": [
+              {
+                "name": "Christian",
+                "percentage": 43.9
+              },
+              {
+                "name": "Islam",
+                "percentage": 3.2
+              },
+              {
+                "name": "Buddhism",
+                "percentage": 2.4
+              },
+              {
+                "name": "Hinduism",
+                "percentage": 2.7
+              },
+              {
+                "name": "Other",
+                "percentage": 1.8
+              }
+            ],
+            "no_religion_percentage": 38.9,
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          },
+          "gender_identity": {
+            "categories": [
+              {
+                "identity": "Female",
+                "percentage": 50.7
+              },
+              {
+                "identity": "Male",
+                "percentage": 49.3
+              },
+              {
+                "identity": "Trans/Non-binary",
+                "percentage": 0.5
+              }
+            ],
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          },
+          "sexual_orientation": {
+            "categories": [
+              {
+                "orientation": "Heterosexual",
+                "percentage": 91.8
+              },
+              {
+                "orientation": "Gay or Lesbian",
+                "percentage": 2.2
+              },
+              {
+                "orientation": "Bisexual",
+                "percentage": 1.7
+              },
+              {
+                "orientation": "Other",
+                "percentage": 4.3
+              }
+            ],
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          },
+          "marital_status": {
+            "categories": [
+              {
+                "status": "Married",
+                "percentage": 47.7
+              },
+              {
+                "status": "Never married",
+                "percentage": 35.0
+              },
+              {
+                "status": "Divorced",
+                "percentage": 8.5
+              },
+              {
+                "status": "Widowed",
+                "percentage": 5.3
+              },
+              {
+                "status": "Separated",
+                "percentage": 3.5
+              }
+            ],
+            "total_married_percentage": 47.7,
+            "source": "Australian Bureau of Statistics",
+            "year": 2021
+          }
+        }
+      },
+      "Canada": {
+        "demographics": {
+          "ethnicity": {
+            "groups": [
+              {
+                "name": "European",
+                "percentage": 72.9
+              },
+              {
+                "name": "Asian",
+                "percentage": 17.7
+              },
+              {
+                "name": "Indigenous",
+                "percentage": 4.9
+              },
+              {
+                "name": "Black",
+                "percentage": 3.5
+              },
+              {
+                "name": "Other",
+                "percentage": 1.0
+            }
+          ],
+          "source": "Statistics Canada",
+          "year": 2021
+        },
+        "first_language": {
+          "languages": [
+            {
+              "name": "English",
+              "percentage": 58.1
+            },
+            {
+              "name": "French",
+              "percentage": 21.4
+            },
+            {
+              "name": "Mandarin",
+              "percentage": 1.7
+            },
+            {
+              "name": "Punjabi",
+              "percentage": 1.4
+            },
+            {
+              "name": "Other",
+              "percentage": 17.4
+            }
+          ],
+          "source": "Statistics Canada",
+          "year": 2021
+        },
+        "religion": {
+          "groups": [
+            {
+              "name": "Christian",
+              "percentage": 53.3
+            },
+            {
+              "name": "Muslim",
+              "percentage": 4.9
+            },
+            {
+              "name": "Hindu",
+              "percentage": 2.3
+            },
+            {
+              "name": "Sikh",
+              "percentage": 2.1
+            },
+            {
+              "name": "Other",
+              "percentage": 3.4
+            }
+          ],
+          "no_religion_percentage": 34.0,
+          "source": "Statistics Canada",
+          "year": 2021
+        },
+        "gender_identity": {
+          "categories": [
+            {
+              "identity": "Female",
+              "percentage": 50.9
+            },
+            {
+              "identity": "Male",
+              "percentage": 49.1
+            },
+            {
+              "identity": "Trans/Non-binary",
+              "percentage": 0.7
+            }
+          ],
+          "source": "Statistics Canada",
+          "year": 2021
+        },
+        "sexual_orientation": {
+          "categories": [
+            {
+              "orientation": "Heterosexual",
+              "percentage": 91.8
+            },
+            {
+              "orientation": "Gay or Lesbian",
+              "percentage": 1.7
+            },
+            {
+              "orientation": "Bisexual",
+              "percentage": 2.0
+            },
+            {
+              "orientation": "Other",
+              "percentage": 4.5
+            }
+          ],
+          "source": "Statistics Canada",
+          "year": 2021
+        },
+        "marital_status": {
+          "categories": [
+            {
+              "status": "Married",
+              "percentage": 46.2
+            },
+            {
+              "status": "Never married",
+              "percentage": 33.9
+            },
+            {
+              "status": "Divorced",
+              "percentage": 8.1
+            },
+            {
+              "status": "Widowed",
+              "percentage": 5.8
+            },
+            {
+              "status": "Separated",
+              "percentage": 6.0
+            }
+          ],
+          "total_married_percentage": 46.2,
+          "source": "Statistics Canada",
+          "year": 2021
+        }
+      }
+    },
+    "India": {
+      "demographics": {
+        "ethnicity": {
+          "groups": [
+            {
+              "name": "Indo-Aryan",
+              "percentage": 72.0
+            },
+            {
+              "name": "Dravidian",
+              "percentage": 25.0
+            },
+            {
+              "name": "Mongoloid",
+              "percentage": 2.0
+            },
+            {
+              "name": "Other",
+              "percentage": 1.0
+            }
+          ],
+          "source": "Census of India",
+          "year": 2021,
+          "methodology_notes": "Ethnic categories are approximate and simplified"
+        },
+        "first_language": {
+          "languages": [
+            {
+              "name": "Hindi",
+              "percentage": 43.6
+            },
+            {
+              "name": "Bengali",
+              "percentage": 8.0
+            },
+            {
+              "name": "Telugu",
+              "percentage": 6.7
+            },
+            {
+              "name": "Marathi",
+              "percentage": 6.9
+            },
+            {
+              "name": "Tamil",
+              "percentage": 5.7
+            },
+            {
+              "name": "Other",
+              "percentage": 29.1
+            }
+          ],
+          "source": "Census of India",
+          "year": 2021
+        },
+        "religion": {
+          "groups": [
+            {
+              "name": "Hindu",
+              "percentage": 79.8
+            },
+            {
+              "name": "Muslim",
+              "percentage": 14.2
+            },
+            {
+              "name": "Christian",
+              "percentage": 2.3
+            },
+            {
+              "name": "Sikh",
+              "percentage": 1.7
+            },
+            {
+              "name": "Buddhist",
+              "percentage": 0.7
+            },
+            {
+              "name": "Jain",
+              "percentage": 0.4
+            },
+            {
+              "name": "Other",
+              "percentage": 0.9
+            }
+          ],
+          "no_religion_percentage": 0.1,
+          "source": "Census of India",
+          "year": 2021
+        },
+        "gender_identity": {
+          "categories": [
+            {
+              "identity": "Female",
+              "percentage": 48.4
+            },
+            {
+              "identity": "Male",
+              "percentage": 51.6
+            },
+            {
+              "identity": "Third Gender",
+              "percentage": 0.04
+            }
+          ],
+          "source": "Census of India",
+          "year": 2021,
+          "methodology_notes": "India legally recognizes third gender (hijra/transgender)"
+        },
+        "sexual_orientation": {
+          "categories": [
+            {
+              "orientation": "Heterosexual",
+              "percentage": 97.0
+            },
+            {
+              "orientation": "LGBTQ+",
+              "percentage": 3.0
+            }
+          ],
+          "source": "Estimated",
+          "year": 2021,
+          "methodology_notes": "Limited data available; figures are estimates"
+        },
+        "marital_status": {
+          "categories": [
+            {
+              "status": "Married",
+              "percentage": 66.0
+            },
+            {
+              "status": "Never married",
+              "percentage": 27.0
+            },
+            {
+              "status": "Widowed",
+              "percentage": 4.7
+            },
+            {
+              "status": "Divorced/Separated",
+              "percentage": 2.3
+            }
+          ],
+          "total_married_percentage": 66.0,
+          "source": "Census of India",
+          "year": 2021
+        }
+      }
+    }
+  }
+}
