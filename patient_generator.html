@@ -83,7 +83,6 @@
                 <input class="form-check-input" type="radio" name="ethnicity_preference" value="specify">
                 <label class="form-check-label">Specify ethnicity</label>
               </div>
-              <!-- Changed from text input to dropdown -->
               <select class="form-select mt-2" id="ethnicity_input" disabled></select>
             </div>
           </div>
@@ -102,7 +101,6 @@
                 <input class="form-check-input" type="radio" name="language_preference" value="specify">
                 <label class="form-check-label">Specify language</label>
               </div>
-              <!-- Changed from text input to dropdown -->
               <select class="form-select mt-2" id="language_input" disabled></select>
             </div>
           </div>
@@ -121,7 +119,6 @@
                 <input class="form-check-input" type="radio" name="religion_preference" value="specify">
                 <label class="form-check-label">Specify religion</label>
               </div>
-              <!-- Changed from text input to dropdown -->
               <select class="form-select mt-2" id="religion_input" disabled></select>
             </div>
           </div>
@@ -156,7 +153,7 @@
             <div class="card-body">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="gender_preference" value="random" checked>
-                <label class="form-check-label">Generate randomly based on country demographics</label>
+                <label class="form-check-label">Generate randomly (99.5% match sex)</label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="gender_preference" value="specify">
@@ -210,7 +207,6 @@
                 <input class="form-check-input" type="radio" name="orientation_preference" value="specify">
                 <label class="form-check-label">Specify sexual orientation</label>
               </div>
-              <!-- Changed from text input to dropdown -->
               <select class="form-select mt-2" id="orientation_input" disabled></select>
             </div>
           </div>
@@ -450,6 +446,13 @@
           const country = document.getElementById('country').value;
           const countryDemographics = countryData.countries[country].demographics;
 
+          // First, get the sex (from radio or dropdown)
+          const sexPreference = document.querySelector('input[name="sex_preference"]:checked').value;
+          const sex = sexPreference === 'random'
+            ? (Math.random() < 0.5 ? 'male' : 'female')
+            : document.getElementById('sex_input').value;
+
+          // Build initial profile
           const profile = {
             age: document.getElementById('age_bracket').value,
             language: document.querySelector('input[name="language_preference"]:checked').value === 'random'
@@ -461,13 +464,8 @@
             religion: document.querySelector('input[name="religion_preference"]:checked').value === 'random'
               ? getRandomFromDistribution(countryDemographics.religion.groups)
               : document.getElementById('religion_input').value,
-            sex: document.querySelector('input[name="sex_preference"]:checked').value === 'random'
-              ? (Math.random() < 0.5 ? 'male' : 'female')
-              : document.getElementById('sex_input').value,
-            // Use gender identity for naming
-            genderIdentity: document.querySelector('input[name="gender_preference"]:checked').value === 'random'
-              ? getRandomFromDistribution(countryDemographics.gender_identity.categories)
-              : document.getElementById('gender_input').value,
+            sex: sex,
+            // We'll assign gender identity next.
             sexualOrientation: document.querySelector('input[name="orientation_preference"]:checked').value === 'random'
               ? getRandomFromDistribution(countryDemographics.sexual_orientation.categories)
               : document.getElementById('orientation_input').value,
@@ -478,6 +476,27 @@
               ? (generateDisability() ? 'Has disability' : 'No disability')
               : document.getElementById('disability_input').value
           };
+
+          // Determine gender identity based on preference:
+          const genderPref = document.querySelector('input[name="gender_preference"]:checked').value;
+          if(genderPref === 'random'){
+            if(Math.random() < 0.995){
+              // 99.5% chance: match gender identity to sex
+              if(profile.sex === 'male'){
+                profile.genderIdentity = 'cisgender_male';
+              } else if(profile.sex === 'female'){
+                profile.genderIdentity = 'cisgender_female';
+              } else if(profile.sex === 'intersex'){
+                // For intersex, choose randomly between the two common identities
+                profile.genderIdentity = (Math.random() < 0.5 ? 'cisgender_male' : 'cisgender_female');
+              }
+            } else {
+              // 0.5% chance: pick a random gender identity from demographics
+              profile.genderIdentity = getRandomFromDistribution(countryDemographics.gender_identity.categories);
+            }
+          } else {
+            profile.genderIdentity = document.getElementById('gender_input').value;
+          }
 
           if (profile.sex === 'female') {
             profile.pregnancyStatus = document.querySelector('input[name="pregnancy_preference"]:checked').value === 'random'
