@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blood Result Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1em;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 1em 2em;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    fieldset {
+      border: 1px solid #ddd;
+      padding: 1em;
+      margin-bottom: 1em;
+    }
+    legend {
+      font-weight: bold;
+      padding: 0 5px;
+    }
+    label {
+      display: block;
+      margin: 0.5em 0;
+    }
+    input[type="text"],
+    input[type="date"],
+    select,
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.3em;
+      box-sizing: border-box;
+    }
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 1em;
+    }
+    button {
+      padding: 0.7em 1.5em;
+      margin: 0.5em 0;
+      background: #007acc;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    /* For on-screen preview tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+      font-size: 10px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 4px 6px;
+      text-align: left;
+    }
+    .final-printout {
+      padding: 1em;
+      border: 2px solid #000;
+      margin-top: 1em;
+    }
+    /* Preview abnormal values appear red */
+    .abnormal {
+      color: red;
+    }
+    /* Finalised abnormal values appear bold (but black in final printout) */
+    .abnormal-final {
+      font-weight: bold;
+      color: black;
+    }
+    /* Custom test form styling */
+    #customTestForm label {
+      display: block;
+      margin: 0.3em 0;
+    }
+    #customTestForm {
+      margin-top: 1em;
+      padding: 0.5em;
+      border: 1px solid #ddd;
+      background: #f9f9f9;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      margin-top: 2em;
+      border-top: 1px solid #ccc;
+      padding-top: 1em;
+    }
+  </style>
+</head>
+
+<body>
+        <!-- Header Include -->
+        <div id="header"></div>
+        <script>
+          // Load the header from header.html and insert it into the #header div
+          fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+        </script>
+  <div class="container">
+    <h1>Blood Result Generator</h1>
+    <!-- Patient Details -->
+    <form id="inputForm">
+      <fieldset>
+        <legend>Patient Details</legend>
+        <label for="patientName">Name:
+          <input type="text" id="patientName" name="patientName" required />
+        </label>
+        <label for="dob">Date of Birth:
+          <input type="date" id="dob" name="dob" required />
+        </label>
+        <label for="hospitalNumber">Hospital Number:
+          <input type="text" id="hospitalNumber" name="hospitalNumber" required />
+        </label>
+        <label for="sex">Sex:
+          <select id="sex" name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+        <label for="doctorName">Doctor Name:
+          <input type="text" id="doctorName" name="doctorName" required />
+        </label>
+      </fieldset>
+
+      <!-- Sample Information -->
+      <fieldset>
+        <legend>Sample Information</legend>
+        <label for="sampleCollection">
+          Sample Collection (e.g. "2 hours ago", "3 days ago"):
+        </label>
+        <input type="text" id="sampleCollection" name="sampleCollection" placeholder="Enter sample collection details" />
+      </fieldset>
+
+      <!-- Blood Panels -->
+      <fieldset>
+        <legend>Select Blood Panels</legend>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="panels" value="Full Blood Count"> Full Blood Count</label>
+          <label><input type="checkbox" name="panels" value="Coagulation"> Coagulation</label>
+          <label><input type="checkbox" name="panels" value="Haematinics"> Haematinics</label>
+          <label><input type="checkbox" name="panels" value="U&Es"> U&amp;Es</label>
+          <label><input type="checkbox" name="panels" value="LFTs"> LFTs</label>
+          <!-- CRP and ESR now separate -->
+          <label><input type="checkbox" name="panels" value="CRP"> CRP</label>
+          <label><input type="checkbox" name="panels" value="ESR"> ESR</label>
+          <label><input type="checkbox" name="panels" value="Arterial Blood Gas"> Arterial Blood Gas</label>
+          <label><input type="checkbox" name="panels" value="Metabolic"> Metabolic</label>
+          <label><input type="checkbox" name="panels" value="Endocrine"> Endocrine</label>
+          <label><input type="checkbox" name="panels" value="Tumour Markers"> Tumour Markers</label>
+          <label><input type="checkbox" name="panels" value="CSF"> CSF</label>
+        </div>
+      </fieldset>
+      
+      <!-- Disease Presets -->
+      <fieldset>
+        <legend>Select Disease Presets (optional)</legend>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="presets" value="Infection"> Infection</label>
+          <label><input type="checkbox" name="presets" value="Obstructive LFTs"> Obstructive LFTs</label>
+          <label><input type="checkbox" name="presets" value="Type 1 Respiratory Failure"> Type 1 Respiratory Failure</label>
+          <label><input type="checkbox" name="presets" value="Type 2 Respiratory Failure"> Type 2 Respiratory Failure</label>
+          <label><input type="checkbox" name="presets" value="Metabolic Acidosis"> Metabolic Acidosis</label>
+          <label><input type="checkbox" name="presets" value="Metabolic Alkalosis"> Metabolic Alkalosis</label>
+          <label><input type="checkbox" name="presets" value="Respiratory Acidosis"> Respiratory Acidosis</label>
+          <label><input type="checkbox" name="presets" value="Acute Kidney Injury Alert"> Acute Kidney Injury Alert</label>
+        </div>
+      </fieldset>
+      <div style="text-align: center;">
+        <button type="button" id="generateBtn">Generate</button>
+      </div>
+    </form>
+
+    <!-- Editable (Preview) Results -->
+    <div id="editableResults" style="display: none;">
+      <h2>Editable Results</h2>
+      <div id="resultsContainer"></div>
+      <div style="text-align: center;">
+        <button type="button" id="finaliseBtn">Finalise</button>
+      </div>
+      <!-- Custom Test Section -->
+      <div id="customTestSection">
+        <button type="button" id="addCustomTestBtn">Add Custom Test</button>
+        <div id="customTestForm" style="display: none;">
+          <label>Panel Name: <input type="text" id="customPanelName" /></label>
+          <label>Test Name: <input type="text" id="customTestName" /></label>
+          <label>Value: <input type="number" step="any" id="customValue" /></label>
+          <label>Unit: <input type="text" id="customUnit" /></label>
+          <label>Normal Min: <input type="number" step="any" id="customMin" /></label>
+          <label>Normal Max: <input type="number" step="any" id="customMax" /></label>
+          <button type="button" id="saveCustomTestBtn">Save Custom Test</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finalised Printout (Preview Only) -->
+    <div id="finalResults" style="display: none;">
+      <h2>Final Lab Printout</h2>
+      <div id="printout" class="final-printout"></div>
+      <div style="text-align: center; margin-top:1em;">
+        <button type="button" id="exportPdfBtn">Export as PDF</button>
+      </div>
+    </div>
+  </div>
+
+      <!-- Footer Include -->
+      <div id="footer"></div>
+      <script>
+        // Load the footer from footer.html and insert it into the #footer div
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading footer:', error));
+      </script>
+
+  <!-- Include External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- AutoTable Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    /* -------- Data Definitions -------- */
+    const bloodPanels = {
+      "Full Blood Count": [
+        { name: "Haemoglobin (Hb)", range: { male: [130, 180], female: [115, 165], unit: "g/L" } },
+        { name: "White Cell Count", range: { all: [3.6, 11.0], unit: "×10⁹/L" } },
+        { name: "Neutrophils", range: { all: [1.8, 7.5], unit: "×10⁹/L" } },
+        { name: "Lymphocytes", range: { all: [1.0, 4.0], unit: "×10⁹/L" } },
+        { name: "Monocytes", range: { all: [0.2, 0.8], unit: "×10⁹/L" } },
+        { name: "Eosinophils", range: { all: [0.1, 0.4], unit: "×10⁹/L" } },
+        { name: "Platelet Count", range: { all: [140, 400], unit: "×10⁹/L" } },
+        { name: "Red Cell Count", range: { male: [4.5, 6.5], female: [3.8, 5.8], unit: "×10¹²/L" } },
+        { name: "Haematocrit", range: { male: [0.40, 0.54], female: [0.37, 0.47], unit: "/L" } },
+        { name: "Mean Cell Volume", range: { all: [80, 100], unit: "fL" } },
+        { name: "MCH", range: { all: [27, 32], unit: "pg/cell" } },
+        { name: "Reticulocyte Count", range: { all: [0.2, 2.0], unit: "%" } }
+      ],
+      "Coagulation": [
+        { name: "Prothrombin Time", range: { all: [10, 14], unit: "seconds" } },
+        { name: "APTT", range: { all: [24, 37], unit: "seconds" } },
+        { name: "Fibrinogen", range: { all: [1.50, 4.50], unit: "g/L" } },
+        { name: "D-dimer", range: { all: [0, 500], unit: "ng/mL" } }
+      ],
+      "Haematinics": [
+        { name: "Ferritin", range: { male: [25, 350], female: [10, 300], unit: "ng/mL" } },
+        { name: "Vitamin B12", range: { all: [180, 1000], unit: "pg/mL" } },
+        { name: "Folate", range: { all: [4.0, 20.0], unit: "ng/mL" } },
+        { name: "Serum Iron", range: { male: [11.6, 35.0], female: [4.6, 30.4], unit: "µmol/L" } },
+        { name: "Transferrin", range: { all: [2.0, 3.6], unit: "g/L" } },
+        { name: "Transferrin Saturation", range: { all: [20, 50], unit: "%" } }
+      ],
+      "U&Es": [
+        { name: "Sodium", range: { all: [133, 146], unit: "mmol/L" } },
+        { name: "Potassium", range: { all: [3.5, 5.3], unit: "mmol/L" } },
+        { name: "Calcium (Adjusted)", range: { all: [2.2, 2.6], unit: "mmol/L" } },
+        { name: "Magnesium", range: { all: [0.7, 1.0], unit: "mmol/L" } },
+        { name: "Chloride", range: { all: [98, 106], unit: "mmol/L" } },
+        { name: "Phosphate", range: { all: [0.74, 1.4], unit: "mmol/L" } },
+        { name: "Urea", range: { all: [2.5, 7.8], unit: "mmol/L" } },
+        { name: "Creatinine", range: { male: [59, 104], female: [45, 84], unit: "µmol/L" } }
+      ],
+      "LFTs": [
+        { name: "ALP", range: { all: [30, 130], unit: "U/L" } },
+        { name: "ALT", range: { male: [0, 41], female: [0, 33], unit: "U/L" } },
+        { name: "AST", range: { all: [1, 45], unit: "U/L" } },
+        { name: "Bilirubin", range: { all: [0, 21], unit: "μmol/L" } },
+        { name: "GGT", range: { male: [0, 60], female: [0, 40], unit: "U/L" } },
+        { name: "Albumin", range: { all: [35, 50], unit: "g/L" } }
+      ],
+      "Inflammatory Markers": [
+        { name: "CRP", range: { all: [0, 5], unit: "mg/L" } },
+        { name: "ESR", range: { 
+            male: [1, 10],
+            female: [3, 15],
+            unit: "mm/hr"
+          } 
+        }
+      ],
+      "Arterial Blood Gas": [
+        { name: "pH", range: { all: [7.35, 7.45], unit: "" } },
+        { name: "pO2", range: { all: [11, 13], unit: "kPa" } },
+        { name: "pCO2", range: { all: [4.7, 6.0], unit: "kPa" } },
+        { name: "HCO3", range: { all: [22, 26], unit: "mmol/L" } },
+        { name: "Base Excess", range: { all: [-2, 2], unit: "mmol/L" } }
+      ],
+      "Metabolic": [
+        { name: "Serum Ketones", range: { all: [0, 0.6], unit: "mmol/L" } },
+        { name: "Fasting Glucose", range: { all: [4.0, 6.0], unit: "mmol/L" } },
+        { name: "HbA1c", range: { all: [20, 42], unit: "mmol/mol" } },
+        { name: "Cholesterol", range: { all: [0, 5.0], unit: "mmol/L" } },
+        { name: "Triglycerides", range: { all: [0.55, 1.90], unit: "mmol/L" } },
+        { name: "LDL", range: { all: [0, 3.0], unit: "mmol/L" } },
+        { name: "HDL", range: { all: [1.0, 3.0], unit: "mmol/L" } }
+      ],
+      "Endocrine": [
+        { name: "TSH", range: { all: [0.4, 4.0], unit: "mU/L" } },
+        { name: "Free T4", range: { all: [9, 24], unit: "pmol/L" } },
+        { name: "Free T3", range: { all: [3.5, 7.8], unit: "pmol/L" } },
+        { name: "Parathyroid Hormone", range: { all: [10, 65], unit: "ng/L" } },
+        { name: "Growth Hormone", range: { male: [0, 5], female: [0, 10], unit: "ng/mL" } },
+        { name: "Cortisol (Random)", range: { all: [137, 429], unit: "nmol/L" } },
+        { name: "Testosterone", range: { 
+            male: { under50: [10, 45], over50: [6.2, 26] },
+            unit: "nmol/L" 
+          } 
+        }
+      ],
+      "Tumour Markers": [
+        { name: "Beta HCG", range: { all: [0, 5], unit: "mU/mL" } },
+        { name: "Alpha Fetoprotein", range: { all: [0, 44], unit: "ng/mL" } },
+        { name: "PSA", range: { all: [0, 4.0], unit: "ng/mL" } },
+        { name: "CEA", range: { 
+            nonsmoker: { age50: [0, 3.6], age70: [0, 4.1] },
+            smoker: [0, 5],
+            unit: "μg/L" 
+          } 
+        },
+        { name: "CA-125", range: { all: [0, 35], unit: "U/mL" } },
+        { name: "CA19-9", range: { all: [0, 40], unit: "U/mL" } }
+      ],
+      "CSF": [
+        { name: "White Blood Cells", range: { all: [0, 5], unit: "cells/µL" } },
+        { name: "Red Blood Cells", range: { all: [0, 10], unit: "/mm³" } },
+        { name: "Protein", range: { all: [0.15, 0.45], unit: "g/L" } },
+        { name: "Glucose", range: { all: [2.8, 4.2], unit: "mmol/L" } },
+        { name: "Opening Pressure", range: { all: [10, 20], unit: "cm H₂O" } }
+      ]
+    };
+
+    const diseasePresets = {
+      "Infection": {
+        affects: {
+          "Full Blood Count": {
+            "Neutrophils": { distribution: "gaussian", mean: 18, sd: 4, min: 10, max: 26 }
+          },
+          "Inflammatory Markers": {
+            "CRP": { distribution: "gaussian", mean: 110, sd: 45, min: 20, max: 200 },
+            "ESR": { multiplier: { min: 2, max: 2 } }
+          },
+          "Haematinics": {
+            "Ferritin": { multiplier: { min: 2, max: 3 } }
+          }
+        }
+      },
+      "Obstructive LFTs": {
+        affects: {
+          "LFTs": {
+            "Bilirubin": { distribution: "gaussian", mean: 40, sd: 5, min: 30, max: 50 },
+            "ALP": { distribution: "gaussian", mean: 230, sd: 35, min: 160, max: 300 },
+            "GGT": { multiplier: { min: 3, max: 5 } },
+            "ALT": { multiplier: { min: 1.5, max: 2 } },
+            "AST": { multiplier: { min: 1.5, max: 2 } }
+          }
+        }
+      },
+      "Type 1 Respiratory Failure": {
+        affects: {
+          "Arterial Blood Gas": {
+            "pH": { distribution: "gaussian", mean: 7.45, sd: 0.02, min: 7.42, max: 7.48 },
+            "pO2": { distribution: "gaussian", mean: 7.5, sd: 0.5, min: 6.5, max: 8.5 },
+            "pCO2": { distribution: "gaussian", mean: 4.0, sd: 0.3, min: 3.5, max: 4.5 },
+            "HCO3": { distribution: "gaussian", mean: 24, sd: 1, min: 22, max: 26 },
+            "Base Excess": { distribution: "gaussian", mean: 0, sd: 1, min: -2, max: 2 }
+          }
+        }
+      },
+      "Type 2 Respiratory Failure": {
+        affects: {
+          "Arterial Blood Gas": {
+            "pH": { distribution: "gaussian", mean: 7.32, sd: 0.02, min: 7.28, max: 7.35 },
+            "pO2": { distribution: "gaussian", mean: 7.0, sd: 0.5, min: 6.0, max: 8.0 },
+            "pCO2": { distribution: "gaussian", mean: 8.0, sd: 0.5, min: 7.0, max: 9.0 },
+            "HCO3": { distribution: "gaussian", mean: 29, sd: 1, min: 27, max: 31 },
+            "Base Excess": { distribution: "gaussian", mean: 3, sd: 1, min: 1, max: 5 }
+          }
+        }
+      },
+      "Metabolic Acidosis": {
+        affects: {
+          "Arterial Blood Gas": {
+            "pH": { distribution: "gaussian", mean: 7.30, sd: 0.02, min: 7.25, max: 7.33 },
+            "pO2": { distribution: "gaussian", mean: 12, sd: 0.5, min: 11, max: 13 },
+            "pCO2": { distribution: "gaussian", mean: 3.5, sd: 0.3, min: 3.0, max: 4.0 },
+            "HCO3": { distribution: "gaussian", mean: 15, sd: 1, min: 13, max: 17 },
+            "Base Excess": { distribution: "gaussian", mean: -10, sd: 2, min: -14, max: -8 }
+          }
+        }
+      },
+      "Metabolic Alkalosis": {
+        affects: {
+          "Arterial Blood Gas": {
+            "pH": { distribution: "gaussian", mean: 7.50, sd: 0.02, min: 7.47, max: 7.53 },
+            "pO2": { distribution: "gaussian", mean: 12, sd: 0.5, min: 11, max: 13 },
+            "pCO2": { distribution: "gaussian", mean: 5.5, sd: 0.3, min: 5.0, max: 6.0 },
+            "HCO3": { distribution: "gaussian", mean: 32, sd: 1, min: 30, max: 34 },
+            "Base Excess": { distribution: "gaussian", mean: 8, sd: 2, min: 6, max: 10 }
+          }
+        }
+      },
+      "Respiratory Acidosis": {
+        affects: {
+          "Arterial Blood Gas": {
+            "pH": { distribution: "gaussian", mean: 7.30, sd: 0.02, min: 7.25, max: 7.33 },
+            "pO2": { distribution: "gaussian", mean: 7.0, sd: 0.5, min: 6.0, max: 8.0 },
+            "pCO2": { distribution: "gaussian", mean: 9.0, sd: 0.5, min: 8.0, max: 10.0 },
+            "HCO3": { distribution: "gaussian", mean: 31, sd: 1, min: 29, max: 33 },
+            "Base Excess": { distribution: "gaussian", mean: 4, sd: 1, min: 2, max: 6 }
+          }
+        }
+      }
+    };
+
+    /* -------- Helper Functions -------- */
+    function randomUniform(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    function randomGaussian(mean, sd) {
+      let u = 0, v = 0;
+      while(u === 0) u = Math.random();
+      while(v === 0) v = Math.random();
+      let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+      return mean + sd * num;
+    }
+    function clamp(val, min, max) {
+      return Math.max(min, Math.min(val, max));
+    }
+    function roundValue(val, decimals = 2) {
+      return Number(val.toFixed(decimals));
+    }
+    
+    // Generate a base value for non-computed tests.
+    function generateBaseValue(test, sex) {
+      const range = test.range;
+      let min, max;
+      if (range.all && Array.isArray(range.all)) {
+        [min, max] = range.all;
+      } else if (range[sex]) {
+        if (Array.isArray(range[sex])) {
+          [min, max] = range[sex];
+        } else {
+          if (range[sex].under50) {
+            [min, max] = range[sex].under50;
+          } else {
+            [min, max] = Object.values(range[sex])[0];
+          }
+        }
+      } else {
+        [min, max] = [0, 1];
+      }
+      return randomUniform(min, max);
+    }
+    
+    // Apply disease preset adjustments.
+    function applyPresets(panelName, testName, baseVal, presetsSelected) {
+      let sourcePanel = (panelName === "CRP" || panelName === "ESR") ? "Inflammatory Markers" : panelName;
+      let modifiedVal = baseVal;
+      presetsSelected.forEach(presetName => {
+        const preset = diseasePresets[presetName];
+        if(preset && preset.affects[sourcePanel] && preset.affects[sourcePanel][testName]) {
+          const effect = preset.affects[sourcePanel][testName];
+          if(effect.distribution) {
+            let val = randomGaussian(effect.mean, effect.sd);
+            modifiedVal = clamp(val, effect.min, effect.max);
+          } else if(effect.multiplier) {
+            const mult = randomUniform(effect.multiplier.min, effect.multiplier.max);
+            modifiedVal = baseVal * mult;
+          }
+        }
+      });
+      return modifiedVal;
+    }
+    
+    // Update White Cell Count.
+    function updateWCC() {
+      const whiteCellTests = ["Neutrophils", "Lymphocytes", "Monocytes", "Eosinophils"];
+      let sum = 0;
+      whiteCellTests.forEach(test => {
+        let input = document.querySelector(`input[data-panel="Full Blood Count"][data-test="${test}"]`);
+        if(input) {
+          sum += parseFloat(input.value) || 0;
+        }
+      });
+      let wccInput = document.querySelector(`input[data-panel="Full Blood Count"][data-test="White Cell Count"]`);
+      if(wccInput) {
+        wccInput.value = roundValue(sum, 1);
+      }
+    }
+    
+    // Retrieve normal range for abnormal checking.
+    function getNormalRange(panel, testName, sex, inputEl) {
+      if(panel === "CRP" || panel === "ESR") {
+        panel = "Inflammatory Markers";
+      }
+      if(inputEl.getAttribute("data-custom") === "true") {
+        const min = parseFloat(inputEl.getAttribute("data-normal-min"));
+        const max = parseFloat(inputEl.getAttribute("data-normal-max"));
+        return { min, max };
+      }
+      if(bloodPanels[panel]) {
+        const testConfig = bloodPanels[panel].find(t => t.name === testName);
+        if(testConfig && testConfig.range) {
+          let range = testConfig.range;
+          if(range.all && Array.isArray(range.all)) {
+            return { min: range.all[0], max: range.all[1] };
+          } else if(range[sex]) {
+            if(Array.isArray(range[sex])) {
+              return { min: range[sex][0], max: range[sex][1] };
+            } else {
+              let arr;
+              if(range[sex].under50) {
+                arr = range[sex].under50;
+              } else {
+                arr = Object.values(range[sex])[0];
+              }
+              return { min: arr[0], max: arr[1] };
+            }
+          }
+        }
+      }
+      return null;
+    }
+    
+    // Check abnormality.
+    function isAbnormal(inputEl, sex) {
+      const panel = inputEl.getAttribute("data-panel");
+      const testName = inputEl.getAttribute("data-test");
+      const range = getNormalRange(panel, testName, sex, inputEl);
+      if(range) {
+        const value = parseFloat(inputEl.value);
+        if(isNaN(value)) return false;
+        return (value < range.min || value > range.max);
+      }
+      return false;
+    }
+    
+    // Update preview abnormal styling.
+    function updateAbnormalPreview() {
+      const sex = document.getElementById("sex").value;
+      document.querySelectorAll("#resultsContainer input[data-panel]").forEach(input => {
+        if(isAbnormal(input, sex)) {
+          input.classList.add("abnormal");
+        } else {
+          input.classList.remove("abnormal");
+        }
+      });
+    }
+    
+    // Calculate age in years from DOB (yyyy-mm-dd)
+    function calculateAge(dob) {
+      const birthDate = new Date(dob);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      return age;
+    }
+    
+    // Recalculate the eGFR value based on Creatinine, age, and sex.
+    function recalcEGFR() {
+      const creatInput = document.querySelector('input[data-panel="U&Es"][data-test="Creatinine"]');
+      const egfrInput = document.querySelector('input[data-panel="U&Es"][data-test="eGFR"]');
+      if(!creatInput || !egfrInput) return;
+      const creatValue = parseFloat(creatInput.value);
+      if(isNaN(creatValue)) return;
+      // Convert creatinine from µmol/L to mg/dL (1 mg/dL ≈ 88.4 µmol/L)
+      const creat_mg = creatValue / 88.4;
+      const dob = document.getElementById("dob").value;
+      if(!dob) return;
+      const age = calculateAge(dob);
+      const sex = document.getElementById("sex").value;
+      const kappa = sex === "female" ? 0.7 : 0.9;
+      const alpha = sex === "female" ? -0.241 : -0.302;
+      const minVal = Math.min(creat_mg / kappa, 1);
+      const maxVal = Math.max(creat_mg / kappa, 1);
+      let egfr = 142 * Math.pow(minVal, alpha) * Math.pow(maxVal, -1.200) * Math.pow(0.9938, age) * (sex === "female" ? 1.012 : 1);
+      if(egfr > 90) {
+        egfrInput.value = ">90";
+      } else {
+        egfrInput.value = Math.round(egfr);
+      }
+    }
+    
+    /* -------- Main Event Handlers -------- */
+    document.getElementById("generateBtn").addEventListener("click", function() {
+      const patientName = document.getElementById("patientName").value;
+      const dob = document.getElementById("dob").value;
+      const hospitalNumber = document.getElementById("hospitalNumber").value;
+      const sex = document.getElementById("sex").value;
+      const doctorName = document.getElementById("doctorName").value;
+      
+      const panelsChecked = Array.from(document.querySelectorAll("input[name='panels']:checked")).map(el => el.value);
+      const presetsSelected = Array.from(document.querySelectorAll("input[name='presets']:checked")).map(el => el.value);
+      
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>Panel</th>
+            <th>Test</th>
+            <th>Value</th>
+            <th>Unit</th>
+          </tr>
+        </thead>
+        <tbody>`;
+      
+      panelsChecked.forEach(panelName => {
+        if(panelName === "CRP" || panelName === "ESR") {
+          const testObj = bloodPanels["Inflammatory Markers"].find(t => t.name === panelName);
+          if(testObj) {
+            let baseVal = generateBaseValue(testObj, sex);
+            let modVal = applyPresets(panelName, testObj.name, baseVal, presetsSelected);
+            // CRP is rounded to integer.
+            let dispVal = (testObj.name === "CRP") ? roundValue(modVal, 0) : roundValue(modVal);
+            html += `<tr>
+              <td>${panelName}</td>
+              <td>${testObj.name}</td>
+              <td><input type="number" step="any" value="${dispVal}" data-panel="${panelName}" data-test="${testObj.name}" /></td>
+              <td>${testObj.range.unit || ""}</td>
+            </tr>`;
+          }
+        } else {
+          const tests = bloodPanels[panelName];
+          if(tests) {
+            tests.forEach(test => {
+              let baseVal = 0, modVal = 0, dispVal = 0, inputReadonly = "";
+              // For White Cell Count, value is computed from other values.
+              if(test.name === "White Cell Count") {
+                dispVal = 0;
+                inputReadonly = "readonly";
+              } else {
+                baseVal = generateBaseValue(test, sex);
+                modVal = applyPresets(panelName, test.name, baseVal, presetsSelected);
+                // If panel is U&Es, round all tests to integer except Potassium (1 decimal)
+                if(panelName === "U&Es") {
+                  if(test.name === "Potassium" || "Calcium (Adjusted)") {
+                    dispVal = roundValue(modVal, 1);
+                  } else {
+                    dispVal = roundValue(modVal, 0);
+                  }
+                } else if(test.name === "Haemoglobin (Hb)" || panelName === "Coagulation" || panelName === "LFTs" || test.name === "CRP") {
+                  dispVal = roundValue(modVal, 0);
+                } else {
+                  dispVal = roundValue(modVal);
+                }
+              }
+              
+              // If U&Es panel and Creatinine test, add an extra row for eGFR right after.
+              if(panelName === "U&Es" && test.name === "Creatinine") {
+                html += `<tr>
+                  <td>${panelName}</td>
+                  <td>${test.name}</td>
+                  <td><input type="number" step="any" value="${dispVal}" data-panel="${panelName}" data-test="${test.name}" /></td>
+                  <td>${test.range.unit || ""}</td>
+                </tr>`;
+                // Calculate initial eGFR based on the generated creatinine value.
+                let creat_mg = dispVal / 88.4; // convert from µmol/L to mg/dL
+                let ageCalc = calculateAge(dob);
+                let kappa = sex === "female" ? 0.7 : 0.9;
+                let alpha = sex === "female" ? -0.241 : -0.302;
+                let minVal = Math.min(creat_mg / kappa, 1);
+                let maxVal = Math.max(creat_mg / kappa, 1);
+                let egfr = 142 * Math.pow(minVal, alpha) * Math.pow(maxVal, -1.200) * Math.pow(0.9938, ageCalc) * (sex === "female" ? 1.012 : 1);
+                let egfrDisp = egfr > 90 ? ">90" : Math.round(egfr);
+                html += `<tr>
+                  <td>${panelName}</td>
+                  <td>eGFR</td>
+                  <td><input type="text" value="${egfrDisp}" data-panel="${panelName}" data-test="eGFR" readonly /></td>
+                  <td>mL/min/1.73m²</td>
+                </tr>`;
+              } else {
+                html += `<tr>
+                  <td>${panelName}</td>
+                  <td>${test.name}</td>
+                  <td><input type="number" step="any" value="${dispVal}" data-panel="${panelName}" data-test="${test.name}" ${inputReadonly} /></td>
+                  <td>${test.range.unit || ""}</td>
+                </tr>`;
+              }
+            });
+          }
+        }
+      });
+      html += `</tbody></table>`;
+      
+      document.getElementById("resultsContainer").innerHTML = html;
+      document.getElementById("editableResults").style.display = "block";
+      document.getElementById("finalResults").style.display = "none";
+      
+      document.querySelectorAll('input[data-panel]').forEach(input => {
+        input.addEventListener("input", function() {
+          if(["Neutrophils", "Lymphocytes", "Monocytes", "Eosinophils"].includes(input.getAttribute("data-test"))) {
+            updateWCC();
+          }
+          updateAbnormalPreview();
+        });
+      });
+      
+      // Add event listener to update eGFR when Creatinine value changes.
+      const creatInput = document.querySelector('input[data-panel="U&Es"][data-test="Creatinine"]');
+      if(creatInput) {
+        creatInput.addEventListener("input", recalcEGFR);
+        recalcEGFR();
+      }
+      
+      updateWCC();
+      updateAbnormalPreview();
+    });
+    
+    // Toggle custom test form.
+    document.getElementById("addCustomTestBtn").addEventListener("click", function() {
+      const formDiv = document.getElementById("customTestForm");
+      formDiv.style.display = (formDiv.style.display === "none") ? "block" : "none";
+    });
+    
+    // Save custom test.
+    document.getElementById("saveCustomTestBtn").addEventListener("click", function() {
+      const panel = document.getElementById("customPanelName").value.trim();
+      const test = document.getElementById("customTestName").value.trim();
+      const value = document.getElementById("customValue").value;
+      const unit = document.getElementById("customUnit").value.trim();
+      const normalMin = document.getElementById("customMin").value;
+      const normalMax = document.getElementById("customMax").value;
+      if(panel && test && value !== "" && normalMin !== "" && normalMax !== "") {
+        const tbody = document.querySelector("#resultsContainer tbody");
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `<td>${panel}</td>
+          <td>${test}</td>
+          <td><input type="number" step="any" value="${value}" data-panel="${panel}" data-test="${test}" data-custom="true" data-normal-min="${normalMin}" data-normal-max="${normalMax}" /></td>
+          <td>${unit}</td>`;
+        tbody.appendChild(newRow);
+        newRow.querySelector("input").addEventListener("input", updateAbnormalPreview);
+        updateAbnormalPreview();
+        document.getElementById("customPanelName").value = "";
+        document.getElementById("customTestName").value = "";
+        document.getElementById("customValue").value = "";
+        document.getElementById("customUnit").value = "";
+        document.getElementById("customMin").value = "";
+        document.getElementById("customMax").value = "";
+      }
+    });
+    
+    // Finalise and group results.
+    // Also store the final data into a global variable for PDF generation.
+    document.getElementById("finaliseBtn").addEventListener("click", function() {
+      const patientName = document.getElementById("patientName").value;
+      const dob = document.getElementById("dob").value;
+      const hospitalNumber = document.getElementById("hospitalNumber").value;
+      const sex = document.getElementById("sex").value;
+      const doctorName = document.getElementById("doctorName").value;
+      const presetsSelected = Array.from(document.querySelectorAll("input[name='presets']:checked")).map(el => el.value);
+      
+      let akiAlertHtml = "";
+      if(presetsSelected.includes("Acute Kidney Injury Alert")) {
+        akiAlertHtml = `<p style="color:red; font-size:10px;">AKI ALERT: Acute Kidney Injury detected. Please review kidney function.</p>`;
+      }
+      
+      let groups = {};
+      document.querySelectorAll("#resultsContainer tbody tr").forEach(row => {
+        const cells = row.querySelectorAll("td");
+        let panel = cells[0].innerText;
+        const testName = cells[1].innerText;
+        if(panel === "CRP" || panel === "ESR") {
+          panel = testName;
+        }
+        if(!groups[panel]) {
+          groups[panel] = [];
+        }
+        const inputEl = cells[2].querySelector("input");
+        const value = inputEl.value;
+        const unit = cells[3].innerText;
+        const abnormal = isAbnormal(inputEl, sex);
+        // Compute reference range from the input element.
+        const rangeObj = getNormalRange(panel, testName, sex, inputEl);
+        const referenceRange = rangeObj ? `${rangeObj.min} - ${rangeObj.max}` : "";
+        groups[panel].push({ testName, value, unit, abnormal, referenceRange });
+      });
+      
+      // Build a preview printout (for on-screen display)
+      let printHtml = `
+<div style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; padding: 10px;">
+  <!-- CONFIDENTIAL header block -->
+  <div style="border: 1.5px solid black; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; height:50px;">
+    <span style="font-size: 24px; font-weight: bold; color: black;">CONFIDENTIAL PATHOLOGY REPORT</span>
+  </div>
+  <hr style="border: 1px solid #000; margin: 10px 0;" />
+  
+  <!-- Additional Header Details -->
+  <div style="font-size: 9px; margin-bottom: 10px;">
+    <p style="margin: 2px 0;">Reported Location: St Billy's Hospital</p>
+    <p style="margin: 2px 0;">Clinician: Dr Perry Cox (Emergency Physician)</p>
+    <p style="margin: 2px 0;">Date: Tuesday, June 01, 2021</p>
+    <p style="margin: 2px 0;">Status: Patient unwell</p>
+    <p style="margin: 2px 0;">Sample ID: N,21.97256402.Y (Blood)</p>
+    <p style="margin: 2px 0;">Collected: ${document.getElementById("sampleCollection").value || "Collected 01/06/21"}</p>
+  </div>
+  <hr style="border: 1px solid #000; margin: 10px 0;" />
+  
+  <!-- Demographics (Patient Details) Table -->
+  <div style="margin-bottom: 10px;">
+      <table style="width: 100%; font-size: 10px; border-collapse: collapse; border: none;">
+        <thead>
+          <tr>
+            <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Name</th>
+            <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">DOB</th>
+            <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Hospital Number</th>
+            <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Sex</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 2px 4px;">${patientName}</td>
+            <td style="padding: 2px 4px;">${dob}</td>
+            <td style="padding: 2px 4px;">${hospitalNumber}</td>
+            <td style="padding: 2px 4px;">${sex}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <hr style="border: 1px solid #000; margin: 10px 0;" />
+  ${akiAlertHtml}
+  <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px;">Lab Results</h3>`;
+      
+      for(let group in groups) {
+        printHtml += `<h4 style="margin: 15px 0 5px 0;">${group}</h4>
+          <table style="width: 100%; font-size: 10px; border-collapse: collapse; border: none;">
+            <thead>
+              <tr>
+                <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Test</th>
+                <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: right;">Value</th>
+                <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Unit</th>
+                <th style="padding: 2px 4px; border-bottom: 1px solid #000; text-align: left;">Ref. Range</th>
+              </tr>
+            </thead>
+            <tbody>`;
+        groups[group].forEach(item => {
+          let displayVal = item.abnormal ? `<strong class="abnormal-final">${item.value}</strong>` : item.value;
+          const unitText = (item.unit === "×10⁹/L") ? "x10^9/L" : item.unit;
+          printHtml += `<tr>
+              <td style="padding: 2px 4px;">${item.testName}</td>
+              <td style="padding: 2px 4px; text-align: right;">${displayVal}</td>
+              <td style="padding: 2px 4px;">${unitText}</td>
+              <td style="padding: 2px 4px;">${item.referenceRange || ""}</td>
+            </tr>`;
+        });
+        printHtml += `</tbody></table>`;
+      }
+      
+      printHtml += `</div>`;
+      
+      document.getElementById("printout").innerHTML = printHtml;
+      document.getElementById("finalResults").style.display = "block";
+      
+      // Store final data for PDF generation.
+      window.finalPDFData = { patientName, dob, hospitalNumber, sex, doctorName, akiAlertHtml, groups };
+    });
+    
+    /* -------- PDF Export Code Using jsPDF AutoTable -------- */
+    document.getElementById("exportPdfBtn").addEventListener("click", function() {
+      if (!window.finalPDFData) {
+        alert("Please finalise the results first.");
+        return;
+      }
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+      
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 15;
+      let yPos = 12;
+      
+      // ---------- Confidential Header Block ----------
+      const headerText = "CONFIDENTIAL PATHOLOGY REPORT";
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.setLineWidth(1);
+      const headerBoxHeight = 20;
+      doc.rect(margin, yPos, pageWidth - 2 * margin, headerBoxHeight, "S");
+      doc.text(headerText, pageWidth / 2, yPos + headerBoxHeight/2 + 4, { align: "center" });
+      
+      yPos += headerBoxHeight + 4;
+      
+      // ---------- Additional Header Details ----------
+      let reportedLocation = "St Billy's Hospital";
+      let clinician = "Dr Perry Cox (Emergency Physician)";
+      let reportDate = "Tuesday, June 01, 2021";
+      let patientStatus = "Patient unwell";
+      let sampleID = "N,21.97256402.Y (Blood)";
+      let sampleCollected = document.getElementById("sampleCollection").value;
+      if(!sampleCollected) { sampleCollected = "Collected 01/06/21"; }
+      
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      let headerLeftX = margin;
+      let headerInfoY = yPos;
+      doc.text("Reported Location: " + reportedLocation, headerLeftX, headerInfoY);
+      doc.text("Clinician: " + clinician, headerLeftX, headerInfoY + 4);
+      doc.text("Date: " + reportDate, headerLeftX, headerInfoY + 8);
+      doc.text("Status: " + patientStatus, headerLeftX, headerInfoY + 12);
+      doc.text("Sample ID: " + sampleID, headerLeftX, headerInfoY + 16);
+      doc.text("Collected: " + sampleCollected, headerLeftX, headerInfoY + 20);
+      yPos = headerInfoY + 24;
+      
+      // ---------- Horizontal Divider ----------
+      doc.line(margin, yPos, pageWidth - margin, yPos);
+      yPos += 4;
+      
+      // ---------- Demographics (Patient Details) Table ----------
+      doc.autoTable({
+        startY: yPos,
+        margin: { left: margin, right: margin },
+        theme: "plain",
+        head: [["Name", "DOB", "Hospital Number", "Sex"]],
+        body: [[window.finalPDFData.patientName, window.finalPDFData.dob, window.finalPDFData.hospitalNumber, window.finalPDFData.sex]],
+        styles: { fontSize: 10, cellPadding: 2 },
+        columnStyles: {
+          0: { cellWidth: 50 },
+          1: { cellWidth: 30 },
+          2: { cellWidth: 50 },
+          3: { cellWidth: 20 }
+        }
+      });
+      yPos = doc.lastAutoTable.finalY + 4;
+      
+      // ---------- Horizontal Divider ----------
+      doc.line(margin, yPos, pageWidth - margin, yPos);
+      yPos += 4;
+      
+      // ---------- AKI Alert (if applicable) ----------
+      if(window.finalPDFData.akiAlertHtml) {
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text("AKI ALERT: Acute Kidney Injury detected. Please review kidney function.", margin, yPos);
+        yPos += 8;
+      }
+      
+      // ---------- Horizontal Divider before Results ----------
+      doc.line(margin, yPos, pageWidth - margin, yPos);
+      yPos += 4;
+      
+      // ---------- Lab Results ----------
+      const groups = window.finalPDFData.groups;
+      // Define common column widths for lab results tables
+      const labColStyles = {
+        0: { cellWidth: 50 },
+        1: { cellWidth: 30 },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 40 }
+      };
+      
+      for (let group in groups) {
+        doc.setFontSize(12);
+        doc.text(group, margin, yPos);
+        yPos += 5;
+        const tableBody = groups[group].map(item => {
+          // In PDF, abnormal values will be marked with an asterisk but styled as bold (not red)
+          const val = item.abnormal ? `${item.value} *` : item.value;
+          const unitText = (item.unit === "×10⁹/L") ? "x10^9/L" : item.unit;
+          return [item.testName, val, unitText, item.referenceRange || ""];
+        });
+        doc.autoTable({
+          startY: yPos,
+          margin: { left: margin, right: margin },
+          theme: "plain",
+          head: [["Test", "Value", "Unit", "Ref. Range"]],
+          body: tableBody,
+          styles: { fontSize: 10, cellPadding: 0, minCellHeight: 4 },
+          headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0] },
+          columnStyles: labColStyles,
+          didParseCell: function(data) {
+            if (data.section === "body") {
+              const rowIndex = data.row.index;
+              if (groups[group][rowIndex].abnormal) {
+                data.cell.styles.fontStyle = 'bold';
+              }
+            }
+          }
+        });
+        yPos = doc.lastAutoTable.finalY + 5;
+      }
+      
+      // ---------- Footer ----------
+      const pageHeight = doc.internal.pageSize.getHeight();
+      doc.setFontSize(10);
+      doc.text("This report is for simulated results only. Made on matthew-bowker.github.io/bloods", pageWidth / 2, pageHeight - 10, { align: "center" });
+      
+      doc.save("lab_results.pdf");
+    });
+  </script>
+</body>
+</html>
